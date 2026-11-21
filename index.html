@@ -1,213 +1,3000 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#101713">
-  <title>FEARFiles — Private Vault & Player</title>
-  <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
-:root{--bg:#0c120f;--panel:#121b16;--panel2:#17221b;--line:#29372e;--green:#55d18b;--green2:#1f9b60;--text:#edf5ef;--muted:#91a197;--red:#ff7777;--radius:18px}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% -10%,#193c2b 0,transparent 36%),var(--bg);color:var(--text);font-family:Manrope,system-ui,sans-serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer}.app-shell{max-width:1440px;margin:auto;min-height:100vh;padding:0 34px;display:flex;flex-direction:column}.topbar{height:88px;display:flex;align-items:center;border-bottom:1px solid #26342b;gap:32px}.brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:800;font-size:19px;white-space:nowrap}.brand small{font:9px 'DM Mono';letter-spacing:1.5px;color:var(--muted);margin-left:5px}.brand-soft{color:var(--green)}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid #4dbd80;border-radius:10px;color:var(--green);box-shadow:0 0 20px #36c87822}.tabs{display:flex;gap:6px;align-items:center;flex:1}.tab,.ghost,.control{border:1px solid transparent;background:transparent;color:var(--muted);padding:11px 15px;border-radius:10px;font-weight:700;font-size:12px;transition:.2s}.tab:hover,.control:hover{background:#1a2920;color:var(--text)}.tab.active{background:#1c3828;color:#77e4a5;border-color:#2d6445}.player-tab{color:#d7f6e2}.danger{color:var(--red)}.ghost{border-color:#553436;background:#251819;white-space:nowrap}.ghost:hover{background:#3a2021}main{flex:1}.page{display:none;padding:48px 0 54px;animation:fade .25s ease}.page.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}.page-heading,.player-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}.eyebrow{font:10px 'DM Mono';letter-spacing:2px;color:var(--green);margin:0 0 10px}h1{font-size:clamp(30px,4vw,43px);letter-spacing:-1.8px;margin:0 0 8px}h2{font-size:17px;margin:0 0 5px}h3{font-size:16px}.muted{color:var(--muted);font-size:13px;line-height:1.65;margin:0}.security-chip,.live-dot{font:10px 'DM Mono';letter-spacing:1px;border:1px solid #315b40;color:#7be3a5;background:#14271c;padding:9px 12px;border-radius:30px}.vault-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(270px,.8fr);gap:20px}.panel,.side-panel{background:linear-gradient(145deg,#152019,#101713);border:1px solid var(--line);border-radius:var(--radius);padding:25px;box-shadow:0 18px 60px #0002}.panel-title{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}.step{font:12px 'DM Mono';color:#5f876d}.dropzone{min-height:174px;border:1px dashed #45644f;border-radius:14px;background:#111c15;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;cursor:pointer;transition:.2s}.dropzone:hover,.dropzone.drag{border-color:var(--green);background:#172a1e;box-shadow:inset 0 0 35px #55d18b0b}.dropzone strong{font-size:13px}.dropzone small{font:10px 'DM Mono';color:#65766b;margin-top:4px}.drop-icon{font-size:26px;color:var(--green);width:42px;height:42px;display:grid;place-items:center;border:1px solid #355e43;border-radius:13px}.file-list{margin:12px 0 20px;display:grid;gap:7px}.empty{color:#65766b;font-size:12px;text-align:center;padding:12px}.file-row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#17221b;border:1px solid #26372c;border-radius:9px;padding:10px 12px;font-size:12px}.file-row span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file-row small{font:10px 'DM Mono';color:var(--muted);white-space:nowrap}.password-block{display:grid;gap:8px;margin:18px 0}.password-block label{font-size:11px;font-weight:800;color:#c5d3c9;margin-top:4px}.password-block input{width:100%;background:#0c130e;border:1px solid #304036;border-radius:9px;padding:13px 14px;color:var(--text);outline:none;font-size:13px}.password-block input:focus{border-color:var(--green);box-shadow:0 0 0 3px #55d18b14}.hint{font-size:11px;color:#7f9085;line-height:1.5;margin:2px 0}.primary{background:linear-gradient(110deg,#2ba768,#55d18b);color:#07150c;border:0;border-radius:10px;padding:13px 18px;font-size:12px;font-weight:800;box-shadow:0 8px 24px #39b97422;transition:.2s}.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}.primary span{margin-left:12px}.wide{width:100%}.side-panel{padding:28px}.side-icon{width:45px;height:45px;display:grid;place-items:center;border-radius:14px;background:#1d3928;color:var(--green);font-size:24px}.side-panel h3{margin:18px 0 8px}.side-panel>p{font-size:12px}.spec{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #26342b;padding:12px 0;font-size:11px;color:var(--muted)}.spec b{color:#d9e8dd;font:11px 'DM Mono'}.notice{margin-top:18px!important;padding:12px;border-left:2px solid #c99c4d;background:#2a2519;color:#c7b994!important;font-size:10px!important}.narrow{max-width:680px;margin:auto}.compact{min-height:135px}.progress-wrap{margin-top:18px}.progress{height:5px;background:#26352b;border-radius:9px;overflow:hidden}.progress i{display:block;width:0;height:100%;background:var(--green);transition:width .2s}.progress-wrap p{font-size:11px;margin-top:8px}.player-page{padding-top:30px}.player-head{margin-bottom:18px}.player-frame{background:#050807;border:1px solid #26332a;border-radius:18px;overflow:hidden;box-shadow:0 25px 80px #0007}.media-stage{height:min(60vw,590px);min-height:340px;display:grid;place-items:center;background:radial-gradient(ellipse at center,#18231c,#050807 70%);position:relative}.media-stage video{width:100%;height:100%;object-fit:contain;background:#000}.media-stage audio{width:min(620px,85%)}.player-empty{text-align:center;padding:30px}.play-orb{width:70px;height:70px;border:1px solid #4e9867;border-radius:50%;display:grid;place-items:center;color:var(--green);font-size:22px;margin:0 auto 20px;box-shadow:0 0 45px #55d18b20}.player-empty h2{font-size:20px}.player-empty p{font-size:12px;color:var(--muted);margin:8px 0 20px}.player-controls{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:17px 20px;background:#101712;border-top:1px solid #27332b}.now-playing{display:flex;align-items:center;gap:12px;min-width:0}.equalizer{color:var(--green);font-size:24px}.now-playing b,.now-playing small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.now-playing b{font-size:12px}.now-playing small{font-size:10px;color:var(--muted);margin-top:4px}.player-actions{display:flex;gap:7px}.control{border-color:#344339;color:#c9d7cd;background:#18231c;font-size:11px}.player-footnote{font-size:11px;color:#76877c;margin-top:13px}.reader-layout{display:grid;grid-template-columns:260px 1fr;min-height:510px;gap:15px}.reader-sidebar,.reader-preview{border:1px solid var(--line);border-radius:15px;background:#121b16;padding:16px}.reader-sidebar .dropzone{margin-bottom:14px}.reader-file{font-size:11px;color:var(--muted);padding:14px 3px;min-height:55px;overflow-wrap:anywhere}.reader-preview{background:#0e1511;display:grid;place-items:stretch;overflow:auto;min-width:0}.reader-empty{align-self:center;text-align:center;color:var(--muted)}.reader-empty span{font-size:35px;color:var(--green)}.reader-empty h2{color:var(--text);margin-top:12px}.reader-empty p{font-size:12px}.preview-text{white-space:pre-wrap;overflow:auto;font:12px/1.65 'DM Mono',monospace;color:#d5e3d9;padding:15px}.preview-image{max-width:100%;max-height:75vh;object-fit:contain;justify-self:center;align-self:center}.preview-pdf{width:100%;height:75vh;border:0;background:#fff}.zip-list{display:grid;align-content:start;gap:7px}.zip-entry{display:flex;justify-content:space-between;gap:12px;background:#17221b;border:1px solid #2a392f;padding:10px;border-radius:8px;color:#dce9df;font-size:11px;text-align:left}.zip-entry:hover{border-color:var(--green)}footer{display:flex;justify-content:space-between;padding:18px 0 24px;border-top:1px solid #26342b;color:#718177;font:9px 'DM Mono';letter-spacing:.4px}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#e8f7ed;color:#102417;padding:12px 18px;border-radius:10px;font-size:12px;font-weight:700;box-shadow:0 10px 35px #0005;transition:.25s;z-index:5;max-width:min(90vw,600px)}.toast.show{opacity:1;transform:translate(-50%,0)}.toast.error{background:#ffe7e7;color:#5e1717}
-@media(max-width:900px){.app-shell{padding:0 18px}.topbar{height:auto;min-height:80px;flex-wrap:wrap;padding:15px 0;gap:14px}.tabs{order:3;flex-basis:100%;overflow:auto}.tab{white-space:nowrap;padding:10px 12px}.brand{flex:1}.vault-grid{grid-template-columns:1fr}.side-panel{display:none}.reader-layout{grid-template-columns:1fr}.reader-sidebar{display:grid;grid-template-columns:1fr 1fr;gap:10px}.reader-sidebar .dropzone{grid-row:span 2;margin:0}.reader-file{align-self:center}.reader-sidebar .wide{align-self:end}}@media(max-width:600px){.app-shell{padding:0 13px}.page{padding:30px 0}.page-heading{align-items:flex-start;gap:12px;flex-direction:column}.panel{padding:17px}.player-controls{align-items:flex-start;flex-direction:column}.player-actions{width:100%;flex-wrap:wrap}.player-actions button{flex:1}.media-stage{min-height:280px;height:65vh}.reader-sidebar{display:block}.reader-sidebar .dropzone{margin-bottom:10px}footer{gap:10px;flex-direction:column}.ghost{padding:9px}.brand small{display:none}}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FEAR Web — Private Encryption, Encrypted Player &amp; Reader</title>
+<style>
+  /* =========================================================================
+     FEAR Web — Offline Design System (Matches FEARFiles Desktop Aesthetic)
+     ========================================================================= */
+  :root {
+    --bg-light: #F7F8F6;
+    --bg-white: #FFFFFF;
+    --border-light: #E1E4DF;
+    --border-card: #D8DDD7;
+    --border-dashed: #C9CDC5;
+    --text-dark: #1A1D1A;
+    --text-muted: #5B615C;
+    --text-soft: #6C7570;
 
+    --brand: #1F5C43;
+    --brand-hover: #174934;
+    --brand-soft: #E7F0EB;
+
+    --danger: #B3261E;
+    --danger-hover: #8F1D17;
+    --danger-soft: #FBEAE8;
+
+    --player-bg: #0D0F0E;
+    --player-bar: #151917;
+    --player-border: #262C29;
+    --player-muted: #9AA39E;
+
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: Consolas, "SFMono-Regular", Menlo, Monaco, "Liberation Mono", monospace;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: var(--font-sans);
+    background: var(--bg-light);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* =========================================================================
+     Top Navigation Bar
+     ========================================================================= */
+  .topbar {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-light);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    z-index: 20;
+  }
+
+  .brand {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--brand);
+    margin-right: 12px;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .nav-tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .spacer {
+    flex: 1;
+    min-width: 8px;
+  }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  }
+
+  button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .tab-btn {
+    background: var(--brand-soft);
+    color: var(--brand);
+    border: none;
+    border-radius: 7px;
+    padding: 8px 14px;
+    font-size: 13.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .tab-btn:hover {
+    background: var(--brand);
+    color: #FFFFFF;
+  }
+
+  .tab-btn.active {
+    background: var(--brand);
+    color: #FFFFFF;
+    font-weight: 700;
+  }
+
+  .lock-btn {
+    background: var(--danger-soft);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+    border-radius: 7px;
+    padding: 7px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .lock-btn:hover {
+    background: var(--danger);
+    color: #FFFFFF;
+  }
+
+  /* Security Context Banner */
+  .crypto-warning {
+    display: none;
+    background: var(--danger-soft);
+    color: var(--danger);
+    border-bottom: 1px solid var(--danger);
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* =========================================================================
+     Main Page Container
+     ========================================================================= */
+  .main-stack {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .page {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .page.active {
+    display: flex;
+  }
+
+  /* =========================================================================
+     Vault Pages (Encrypt & Decrypt)
+     ========================================================================= */
+  .vault-page {
+    background: var(--bg-light);
+    padding: 20px 24px;
+    gap: 12px;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .vault-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .drop-list {
+    flex: 1;
+    min-height: 180px;
+    max-height: 360px;
+    overflow-y: auto;
+    background: var(--bg-white);
+    border: 1.5px dashed var(--border-dashed);
+    border-radius: var(--radius-lg);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .drop-list.drag-over {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+  }
+
+  .drop-placeholder {
+    margin: auto;
+    text-align: center;
+    color: var(--text-soft);
+    font-size: 14px;
+    padding: 20px;
+    line-height: 1.5;
+    pointer-events: none;
+  }
+
+  .file-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+  }
+
+  .file-row-name {
+    font-weight: 600;
+    word-break: break-all;
+  }
+
+  .file-row-meta {
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-size: 12px;
+  }
+
+  .file-row-rm {
+    background: transparent;
+    border: none;
+    color: var(--danger);
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .file-row-rm:hover {
+    background: var(--danger-soft);
+  }
+
+  .row-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn-secondary {
+    background: var(--bg-white);
+    color: var(--text-dark);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-sm);
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .btn-secondary:hover {
+    background: #EEF1ED;
+  }
+
+  .btn-primary {
+    background: var(--brand);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 7px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--brand-hover);
+  }
+
+  .btn-danger {
+    background: var(--danger);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 14px;
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  .btn-danger:hover:not(:disabled) {
+    background: var(--danger-hover);
+  }
+
+  .btn-danger-outline {
+    background: var(--danger-soft);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+    border-radius: var(--radius-sm);
+    padding: 7px 12px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .btn-danger-outline:hover {
+    background: var(--danger);
+    color: #FFFFFF;
+  }
+
+  .pw-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .text-input {
+    width: 100%;
+    padding: 10px 42px 10px 12px;
+    border: 1px solid var(--border-card);
+    border-radius: 7px;
+    background: var(--bg-white);
+    color: var(--text-dark);
+    font-size: 14px;
+    outline: none;
+  }
+
+  .text-input:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 2px rgba(31, 92, 67, 0.14);
+  }
+
+  .pw-toggle {
+    position: absolute;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 6px;
+    border-radius: 4px;
+  }
+
+  .pw-toggle:hover {
+    background: var(--bg-light);
+    color: var(--text-dark);
+  }
+
+  .vault-submit-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .vault-submit-row .btn-primary {
+    flex: 1;
+  }
+
+  .progress-wrap {
+    display: none;
+    width: 100%;
+    height: 14px;
+    background: #E2E6E1;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .progress-wrap.visible {
+    display: block;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--brand);
+    transition: width 0.1s linear;
+  }
+
+  .status-line {
+    font-size: 13px;
+    color: var(--text-muted);
+    min-height: 20px;
+    word-break: break-word;
+  }
+
+  .status-line.error {
+    color: var(--danger);
+    font-weight: 600;
+  }
+
+  .status-line.ok {
+    color: var(--brand);
+    font-weight: 600;
+  }
+
+  /* =========================================================================
+     Player Page (VLC-Style Dark In-Window Player)
+     ========================================================================= */
+  .player-page {
+    background: var(--player-bg);
+    color: #FFFFFF;
+  }
+
+  .player-stage {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
+    background: #080A09;
+    overflow: hidden;
+  }
+
+  .player-stage.drag-over {
+    outline: 2px dashed var(--brand);
+    outline-offset: -8px;
+    background: #101A15;
+  }
+
+  .player-video {
+    width: 100%;
+    height: 100%;
+    max-height: calc(100vh - 170px);
+    object-fit: contain;
+    display: none;
+    background: #000000;
+  }
+
+  .player-video.visible {
+    display: block;
+  }
+
+  .player-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    color: var(--player-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    gap: 12px;
+    pointer-events: none;
+  }
+
+  .player-overlay.interactive {
+    pointer-events: auto;
+    background: rgba(13, 15, 14, 0.88);
+  }
+
+  .player-overlay.hidden {
+    display: none;
+  }
+
+  .audio-card {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 28px 36px;
+    background: #151917;
+    border: 1px solid #262C29;
+    border-radius: 14px;
+    max-width: 90%;
+    text-align: center;
+  }
+
+  .audio-card.visible {
+    display: flex;
+  }
+
+  .audio-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(31, 92, 67, 0.22);
+    border: 2px solid var(--brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: #5CE0A8;
+  }
+
+  .audio-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFFFFF;
+    word-break: break-word;
+  }
+
+  .audio-sub {
+    font-size: 13px;
+    color: var(--player-muted);
+  }
+
+  .player-progress-box {
+    width: min(420px, 90%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .player-controls {
+    background: var(--player-bar);
+    border-top: 1px solid var(--player-border);
+    padding: 10px 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .timeline-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: #DCE2DE;
+  }
+
+  .timeline-slider {
+    flex: 1;
+    accent-color: #298760;
+    cursor: pointer;
+    height: 6px;
+  }
+
+  .ctrl-btn-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .p-btn {
+    background: var(--brand);
+    color: #FFFFFF;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 7px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .p-btn:hover {
+    background: var(--brand-hover);
+  }
+
+  .p-btn-stop {
+    background: var(--danger);
+  }
+
+  .p-btn-stop:hover {
+    background: var(--danger-hover);
+  }
+
+  .p-label {
+    font-size: 12.5px;
+    color: var(--player-muted);
+    margin-left: 4px;
+  }
+
+  .p-select {
+    background: #1E2421;
+    color: #FFFFFF;
+    border: 1px solid #303935;
+    border-radius: var(--radius-sm);
+    padding: 5px 8px;
+    font-size: 12.5px;
+    max-width: 150px;
+  }
+
+  .vol-slider {
+    width: 90px;
+    accent-color: #298760;
+    cursor: pointer;
+  }
+
+  /* =========================================================================
+     Read & Preview Page (with Lazy ZIP Inspector)
+     ========================================================================= */
+  .read-page {
+    background: var(--bg-light);
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .read-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+
+  .read-info {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text-muted);
+    min-width: 200px;
+    word-break: break-word;
+  }
+
+  .read-split {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+    min-height: 0;
+  }
+
+  .read-split.drag-over {
+    outline: 2px dashed var(--brand);
+    outline-offset: -4px;
+    border-radius: var(--radius-md);
+  }
+
+  .zip-pane {
+    display: none;
+    width: 34%;
+    min-width: 240px;
+    max-width: 440px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  .zip-pane.visible {
+    display: flex;
+  }
+
+  .zip-table-wrap {
+    flex: 1;
+    overflow: auto;
+  }
+
+  .zip-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+
+  .zip-table th {
+    position: sticky;
+    top: 0;
+    background: #F1F3F0;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-card);
+    font-weight: 600;
+  }
+
+  .zip-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #EFF1EE;
+    vertical-align: middle;
+  }
+
+  .zip-table tr.zip-row {
+    cursor: pointer;
+  }
+
+  .zip-table tr.zip-row:hover {
+    background: var(--brand-soft);
+  }
+
+  .zip-table tr.zip-row.selected {
+    background: var(--brand);
+    color: #FFFFFF;
+  }
+
+  .zip-table tr.zip-dir {
+    color: var(--text-soft);
+    cursor: default;
+  }
+
+  .preview-pane {
+    flex: 1;
+    background: var(--bg-white);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 360px;
+  }
+
+  .preview-view {
+    display: none;
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  .preview-view.active {
+    display: flex;
+  }
+
+  .preview-empty {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-soft);
+    font-size: 14px;
+    line-height: 1.7;
+    padding: 24px;
+    white-space: pre-line;
+  }
+
+  .preview-text {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 14px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: var(--text-dark);
+    width: 100%;
+    margin: 0;
+  }
+
+  .preview-image-wrap {
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: #F4F5F3;
+  }
+
+  .preview-image-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .preview-pdf-frame {
+    width: 100%;
+    height: 100%;
+    min-height: 460px;
+    border: none;
+  }
+
+  /* =========================================================================
+     Custom Modal Dialog (Password Prompt & Info/Error Messages — No alert/prompt!)
+     ========================================================================= */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 15, 14, 0.62);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .modal-backdrop.open {
+    display: flex;
+  }
+
+  .modal-card {
+    background: var(--bg-white);
+    color: var(--text-dark);
+    border-radius: 12px;
+    width: min(440px, 100%);
+    padding: 20px;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .modal-title.error {
+    color: var(--danger);
+  }
+
+  .modal-body {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  /* =========================================================================
+     Responsive Adjustments
+     ========================================================================= */
+  @media (max-width: 768px) {
+    .vault-page {
+      padding: 14px;
+    }
+    .read-split {
+      flex-direction: column;
+    }
+    .zip-pane {
+      width: 100%;
+      max-width: none;
+      max-height: 220px;
+    }
+    .brand {
+      margin-right: 4px;
+    }
+    .tab-btn, .lock-btn {
+      padding: 7px 10px;
+      font-size: 12.5px;
+    }
+  }
 </style>
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <a class="brand" href="#" aria-label="FEARFiles home"><span class="brand-mark">F</span><span>FEAR<span class="brand-soft">Files</span></span><small>PRIVATE WORKSPACE</small></a>
-      <nav class="tabs" aria-label="Main navigation">
-        <button class="tab active" data-page="encrypt">Encrypt</button>
-        <button class="tab" data-page="decrypt">Decrypt</button>
-        <button class="tab player-tab" data-page="player">▶ FEARFiles Player</button>
-        <button class="tab" data-page="read">▤ Read</button>
-      </nav>
-      <button class="danger ghost" id="lockAll">Lock &amp; clear</button>
-    </header>
 
-    <main>
-      <section class="page active" id="page-encrypt">
-        <div class="page-heading"><div><p class="eyebrow">LOCAL ENCRYPTION</p><h1>Protect your files.</h1><p class="muted">Create interoperable FEARW3 <code>.fearfiles</code> containers.</p></div><span class="security-chip">AES-256-GCM</span></div>
-        <div class="vault-grid">
-          <div class="panel">
-            <div class="panel-title"><div><h2>Choose files</h2><p class="muted">Files are processed locally in this browser.</p></div><span class="step">01</span></div>
-            <label class="dropzone" id="encDrop"><input id="encFiles" type="file" multiple hidden><span class="drop-icon">＋</span><strong>Drop files here</strong><span class="muted">or click to browse</span><small>Multiple files supported</small></label>
-            <div class="file-list" id="encList"><p class="empty">No files selected yet.</p></div>
-            <div class="password-block"><label for="encPass">Vault password</label><input id="encPass" type="password" autocomplete="new-password" placeholder="Use at least 16 characters"><label for="encConfirm">Confirm password</label><input id="encConfirm" type="password" autocomplete="new-password" placeholder="Re-enter password"><p class="hint">A long, unique passphrase is recommended. FEARFiles cannot recover a lost password.</p></div>
-            <button class="primary wide" id="encryptBtn">Encrypt selected files <span>↗</span></button>
-            <div class="progress-wrap" id="encProgressWrap" hidden><div class="progress"><i id="encProgress"></i></div><p id="encStatus" class="muted">Preparing…</p></div>
-          </div>
-          <aside class="side-panel">
-            <div class="side-icon">⌑</div><h3>FEARW3 format</h3><p class="muted">The web edition uses the same 54-byte FEARW3 header, PBKDF2-SHA256 work factor, AES-256-GCM metadata authentication and 4 MiB authenticated chunks as the supplied C++ desktop source.</p>
-            <div class="spec"><span>Key derivation</span><b>PBKDF2 · SHA-256</b></div><div class="spec"><span>Iterations</span><b>1,200,000</b></div><div class="spec"><span>Encryption</span><b>AES-256-GCM</b></div><div class="spec"><span>Chunk size</span><b>4 MiB</b></div>
-            <p class="notice">Use HTTPS or localhost. Browser memory and browser extensions are outside this app's control.</p>
-          </aside>
-        </div>
-      </section>
+  <!-- Top Navigation Bar -->
+  <header class="topbar" id="topBar">
+    <div class="brand">FEAR Web</div>
+    <nav class="nav-tabs" aria-label="Main navigation">
+      <button class="tab-btn active" data-tab="encrypt" id="tabBtnEncrypt">Encrypt</button>
+      <button class="tab-btn" data-tab="decrypt" id="tabBtnDecrypt">Decrypt</button>
+      <button class="tab-btn" data-tab="player" id="tabBtnPlayer">▶ FEARFiles Player</button>
+      <button class="tab-btn" data-tab="read" id="tabBtnRead">📖 Read</button>
+    </nav>
+    <div class="spacer"></div>
+    <button class="lock-btn" id="globalLockBtn" title="Stop playback, clear passwords, revoke URLs, and wipe RAM">Lock &amp; Wipe RAM</button>
+  </header>
 
-      <section class="page" id="page-decrypt">
-        <div class="page-heading"><div><p class="eyebrow">RESTORE ORIGINAL FILES</p><h1>Unlock your vault.</h1><p class="muted">Authenticate and decrypt FEARW3 containers.</p></div><span class="security-chip">AUTHENTICATED DECRYPTION</span></div>
-        <div class="panel narrow">
-          <label class="dropzone compact" id="decDrop"><input id="decFiles" type="file" multiple hidden><span class="drop-icon">＋</span><strong>Drop .fearfiles here</strong><span class="muted">or click to browse</span></label>
-          <div class="file-list" id="decList"><p class="empty">No encrypted files selected.</p></div>
-          <div class="password-block"><label for="decPass">Password</label><input id="decPass" type="password" autocomplete="current-password" placeholder="Enter your vault password"></div>
-          <button class="primary wide" id="decryptBtn">Authenticate &amp; decrypt <span>↗</span></button>
-          <div class="progress-wrap" id="decProgressWrap" hidden><div class="progress"><i id="decProgress"></i></div><p id="decStatus" class="muted">Preparing…</p></div>
-        </div>
-      </section>
-
-      <section class="page player-page" id="page-player">
-        <div class="player-head"><div><p class="eyebrow">SECURE MEDIA WORKSPACE</p><h1>FEARFiles Player</h1></div><span class="live-dot">LOCAL SESSION</span></div>
-        <div class="player-frame">
-          <div class="media-stage" id="mediaStage">
-            <div class="player-empty" id="playerEmpty"><div class="play-orb">▶</div><h2>Your private media space</h2><p>Open an encrypted media file to authenticate and play it here.</p><button class="primary" id="playerOpen">Open .fearfiles</button></div>
-            <video id="video" controls playsinline hidden></video>
-            <audio id="audio" controls hidden></audio>
-          </div>
-          <div class="player-controls"><div class="now-playing"><span class="equalizer">▥</span><div><b id="mediaName">No media loaded</b><small id="mediaMeta">Encrypted playback · browser memory session</small></div></div><div class="player-actions"><button class="control" id="playerOpen2">Open file</button><button class="control danger" id="stopPlayer">Stop &amp; clear</button><button class="control" id="fullscreen">Fullscreen</button></div></div>
-        </div>
-        <p class="player-footnote">Playback uses the browser's built-in media engine. The decrypted media is held in a temporary in-memory Blob URL, not written to a plaintext file by this app.</p>
-      </section>
-
-      <section class="page" id="page-read">
-        <div class="page-heading"><div><p class="eyebrow">PRIVATE DOCUMENT VIEWER</p><h1>Read &amp; inspect.</h1><p class="muted">Preview common documents, images, text and supported ZIP entries.</p></div><span class="security-chip">32 MiB PREVIEW LIMIT</span></div>
-        <div class="reader-layout">
-          <aside class="reader-sidebar"><label class="dropzone compact" id="readDrop"><input id="readFiles" type="file" hidden><span class="drop-icon">＋</span><strong>Open a file</strong><span class="muted">or drop it here</span></label><div class="reader-file" id="readerFile">No file open</div><button class="control wide" id="clearReader">Close &amp; clear</button></aside>
-          <div class="reader-preview" id="readerPreview"><div class="reader-empty"><span>▤</span><h2>Nothing opened yet</h2><p>Choose a PDF, image, text file, ZIP, or encrypted .fearfiles file.</p></div></div>
-        </div>
-      </section>
-    </main>
-    <footer><span>FEARFiles Web · FEARW3</span><span>Local-first · No account · No upload server</span></footer>
+  <!-- Insecure Context Warning (shown only if SubtleCrypto is unavailable) -->
+  <div class="crypto-warning" id="cryptoWarning">
+    Web Crypto API (crypto.subtle) is unavailable in this context. Open this file via HTTPS, localhost, or a local file URL in a modern browser.
   </div>
-  <input id="hiddenOpen" type="file" accept=".fearfiles" hidden>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script>
-/* FEARFiles Web — FEARW3 compatible browser implementation.
-   WebCrypto is used for PBKDF2-SHA256 and AES-256-GCM. */
-"use strict";
-const $ = id => document.getElementById(id);
-const MAGIC = new TextEncoder().encode("FEARW3");
-const HEADER = 54, SALT = 16, IV = 12, TAG = 16, CHUNK = 4 * 1024 * 1024, ITERS = 1200000;
-const MAX_PREVIEW = 32 * 1024 * 1024;
-let encFiles = [], decFiles = [], playerUrl = null, readerUrl = null, readerZip = null;
-const encoder = new TextEncoder(), decoder = new TextDecoder();
 
-function toast(msg, error=false){const t=$("toast");t.textContent=msg;t.className="toast show"+(error?" error":"");clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.className="toast",3600)}
-function bytesLabel(n){if(n<1024)return n+" B";if(n<1048576)return (n/1024).toFixed(1)+" KB";return (n/1048576).toFixed(2)+" MB"}
-function setProgress(prefix,pct,msg){$(prefix+"ProgressWrap").hidden=false;$(prefix+"Progress").style.width=pct+"%";$(prefix+"Status").textContent=msg}
-function finishProgress(prefix,msg){$(prefix+"Progress").style.width="100%";$(prefix+"Status").textContent=msg}
-function wipeInput(id){const el=$(id);el.value="";}
-function wipeText(id){const el=$(id);el.value="";}
-function renderFiles(list,files,encrypted=false){list.innerHTML="";if(!files.length){list.innerHTML='<p class="empty">'+(encrypted?"No encrypted files selected.":"No files selected yet.")+'</p>';return}for(const f of files){const row=document.createElement("div");row.className="file-row";const n=document.createElement("span");n.textContent=f.name;const s=document.createElement("small");s.textContent=bytesLabel(f.size);row.append(n,s);list.append(row)}}
-function addFiles(target,files){const incoming=[...files].filter(f=>!target.some(x=>x.name===f.name&&x.size===f.size&&x.lastModified===f.lastModified));target.push(...incoming)}
-function setupDrop(zoneId,inputId,callback){const z=$(zoneId),i=$(inputId);z.addEventListener("click",e=>{if(e.target!==i)i.click()});i.addEventListener("change",()=>callback(i.files));for(const ev of ["dragenter","dragover"])z.addEventListener(ev,e=>{e.preventDefault();z.classList.add("drag")});for(const ev of ["dragleave","drop"])z.addEventListener(ev,e=>{e.preventDefault();z.classList.remove("drag")});z.addEventListener("drop",e=>callback(e.dataTransfer.files))}
-function u32(v){return new Uint8Array([(v>>>24)&255,(v>>>16)&255,(v>>>8)&255,v&255])}
-function u64(v){let a=new Uint8Array(8);let x=BigInt(v);for(let i=7;i>=0;i--){a[i]=Number(x&255n);x>>=8n}return a}
-function readU32(a,o){return new DataView(a.buffer,a.byteOffset,a.byteLength).getUint32(o,false)}
-function readU64(a,o){return new DataView(a.buffer,a.byteOffset,a.byteLength).getBigUint64(o,false)}
-function concat(...parts){let n=parts.reduce((s,p)=>s+p.length,0),out=new Uint8Array(n),o=0;for(const p of parts){out.set(p,o);o+=p.length}return out}
-function equal(a,b){return a.length===b.length&&a.every((v,i)=>v===b[i])}
-function makeIv(base,index){const out=base.slice();let x=BigInt(index);for(let i=11;i>=4;i--){out[i]^=Number(x&255n);x>>=8n}return out}
-async function deriveKey(password,salt,iters){const material=await crypto.subtle.importKey("raw",encoder.encode(password),"PBKDF2",false,["deriveKey"]);return crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:iters,hash:"SHA-256"},material,{name:"AES-GCM",length:256},false,["encrypt","decrypt"])}
-async function aesEncrypt(key,iv,aad,plain){return new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM",iv,additionalData:aad,tagLength:128},key,plain))}
-async function aesDecrypt(key,iv,aad,cipher){return new Uint8Array(await crypto.subtle.decrypt({name:"AES-GCM",iv,additionalData:aad,tagLength:128},key,cipher))}
-function makeHeader(salt,baseIv,size,metaLen){const h=new Uint8Array(HEADER);h.set(MAGIC,0);h.set(salt,6);h.set(baseIv,22);h.set(u32(ITERS),34);h.set(u32(CHUNK),38);h.set(u64(size),42);h.set(u32(metaLen),50);return h}
-function safeName(name){return name.replace(/[\\/:*?"<>|\u0000-\u001f]/g,"_").replace(/^\.+$/,"file")||"file"}
-function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000)}
-function assertSecure(){if(!window.crypto?.subtle)throw new Error("Web Crypto is unavailable. Open this app on HTTPS or localhost in a modern browser.")}
+  <!-- Main Stacked Pages -->
+  <main class="main-stack">
 
-async function encryptOne(file,password,onProgress){
-  assertSecure();const salt=crypto.getRandomValues(new Uint8Array(SALT)),baseIv=crypto.getRandomValues(new Uint8Array(IV));
-  const key=await deriveKey(password,salt,ITERS),meta=encoder.encode(JSON.stringify({name:file.name,type:file.type||"application/octet-stream"}));
-  const header=makeHeader(salt,baseIv,file.size,meta.length+TAG),metaCipher=await aesEncrypt(key,makeIv(baseIv,0),header,meta);
-  const parts=[header,metaCipher],count=Math.max(1,Math.ceil(file.size/CHUNK));
-  for(let i=0;i<count;i++){
-    const start=i*CHUNK,end=Math.min(file.size,start+CHUNK),plain=new Uint8Array(await file.slice(start,end).arrayBuffer());
-    const aad=concat(header,u64(i),u32(plain.length),new Uint8Array([i===count-1?1:0]));
-    const cipher=await aesEncrypt(key,makeIv(baseIv,i+1),aad,plain);
-    parts.push(u32(plain.length),cipher);plain.fill(0);onProgress(Math.round((i+1)/count*100));
+    <!-- ===================================================================
+         1. ENCRYPT PAGE (FEARW3)
+         =================================================================== -->
+    <section class="page vault-page active" id="pageEncrypt">
+      <h2 class="vault-title">Encrypt Files (FEARW3)</h2>
+
+      <div class="drop-list" id="encDropList">
+        <div class="drop-placeholder">
+          Drop files here or click "Choose Files" to encrypt with AES-256-GCM + PBKDF2-SHA256 (1,200,000 iterations).<br>
+          100% binary compatible with FEARFiles Desktop.
+        </div>
+      </div>
+
+      <div class="row-actions">
+        <input type="file" id="encFileInput" multiple hidden>
+        <button class="btn-secondary" id="encChooseBtn">Choose Files</button>
+        <button class="btn-secondary" id="encClearBtn">Clear</button>
+      </div>
+
+      <div class="pw-wrap">
+        <input type="password" class="text-input" id="encPw1" placeholder="Password (min 16 characters)" autocomplete="new-password" spellcheck="false">
+        <button type="button" class="pw-toggle" data-target="encPw1">Show</button>
+      </div>
+
+      <div class="pw-wrap">
+        <input type="password" class="text-input" id="encPw2" placeholder="Confirm password" autocomplete="new-password" spellcheck="false">
+        <button type="button" class="pw-toggle" data-target="encPw2">Show</button>
+      </div>
+
+      <div class="vault-submit-row">
+        <button class="btn-primary" id="encRunBtn">Encrypt Selected Files</button>
+        <button class="btn-danger" id="encCancelBtn" style="display:none;">Cancel</button>
+      </div>
+
+      <div class="progress-wrap" id="encProgressWrap">
+        <div class="progress-fill" id="encProgressFill"></div>
+      </div>
+      <div class="status-line" id="encStatus"></div>
+    </section>
+
+    <!-- ===================================================================
+         2. DECRYPT PAGE (FEARW3 & Legacy FEARW2)
+         =================================================================== -->
+    <section class="page vault-page" id="pageDecrypt">
+      <h2 class="vault-title">Decrypt Files to Disk</h2>
+
+      <div class="drop-list" id="decDropList">
+        <div class="drop-placeholder">
+          Drop .fearfiles here or click "Choose Files" to authenticate and decrypt.<br>
+          Supports FEARW3 and legacy FEARW2 formats.
+        </div>
+      </div>
+
+      <div class="row-actions">
+        <input type="file" id="decFileInput" multiple hidden>
+        <button class="btn-secondary" id="decChooseBtn">Choose Files</button>
+        <button class="btn-secondary" id="decClearBtn">Clear</button>
+      </div>
+
+      <div class="pw-wrap">
+        <input type="password" class="text-input" id="decPw1" placeholder="Enter password" autocomplete="off" spellcheck="false">
+        <button type="button" class="pw-toggle" data-target="decPw1">Show</button>
+      </div>
+
+      <div class="vault-submit-row">
+        <button class="btn-primary" id="decRunBtn">Decrypt &amp; Save Files</button>
+        <button class="btn-danger" id="decCancelBtn" style="display:none;">Cancel</button>
+      </div>
+
+      <div class="progress-wrap" id="decProgressWrap">
+        <div class="progress-fill" id="decProgressFill"></div>
+      </div>
+      <div class="status-line" id="decStatus"></div>
+    </section>
+
+    <!-- ===================================================================
+         3. VLC-STYLE FEARFILES PLAYER PAGE
+         =================================================================== -->
+    <section class="page player-page" id="pagePlayer">
+      <div class="player-stage" id="playerStage">
+        <video class="player-video" id="playerVideo" playsinline></video>
+
+        <!-- Audio-only Artwork Card -->
+        <div class="audio-card" id="audioCard">
+          <div class="audio-icon">♪</div>
+          <div class="audio-title" id="audioTitle">Audio Track</div>
+          <div class="audio-sub" id="audioSub">Authenticated FEAR RAM Stream</div>
+        </div>
+
+        <!-- Idle / Progress Overlay -->
+        <div class="player-overlay" id="playerOverlay">
+          <div id="playerOverlayText">
+            Drop any .fearfiles media here (MP4, WebM, MKV, FLAC, MP3, WAV, OGG...)<br>
+            Authenticated encrypted playback · Zero disk writes · Instant RAM wipe
+          </div>
+          <div class="player-progress-box" id="playerProgressBox" style="display:none;">
+            <div class="progress-wrap visible">
+              <div class="progress-fill" id="playerProgressFill"></div>
+            </div>
+            <button class="btn-danger" id="playerCancelLoadBtn">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-controls">
+        <div class="timeline-row">
+          <span id="timeCur">00:00</span>
+          <input type="range" class="timeline-slider" id="timelineSlider" min="0" max="1000" value="0" aria-label="Seek timeline">
+          <span id="timeTot">00:00</span>
+        </div>
+
+        <div class="ctrl-btn-row">
+          <input type="file" id="playerFileInput" accept=".fearfiles,*" hidden>
+          <button class="p-btn" id="playPauseBtn">Play / Pause</button>
+          <button class="p-btn p-btn-stop" id="stopWipeBtn">Stop &amp; Wipe RAM</button>
+          <button class="p-btn" id="openMediaBtn">Open .fearfiles</button>
+
+          <span class="p-label">Audio:</span>
+          <select class="p-select" id="audioTrackSelect" aria-label="Audio track">
+            <option value="auto">Audio: Auto</option>
+          </select>
+
+          <span class="p-label">Sub:</span>
+          <select class="p-select" id="subTrackSelect" aria-label="Subtitle track">
+            <option value="no">Subtitles: Off</option>
+          </select>
+
+          <div class="spacer"></div>
+
+          <span class="p-label">Vol:</span>
+          <input type="range" class="vol-slider" id="volSlider" min="0" max="100" value="80" aria-label="Volume">
+          <button class="p-btn" id="fsBtn">Fullscreen</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         4. READ & PREVIEW PAGE (PDF, TXT, Images, Hex, Lazy .fearfiles ZIP)
+         =================================================================== -->
+    <section class="page read-page" id="pageRead">
+      <div class="read-bar">
+        <input type="file" id="readFileInput" hidden>
+        <button class="btn-primary" style="padding:7px 14px; font-size:13px;" id="readOpenBtn">Open File / .fearfiles</button>
+        <button class="btn-danger-outline" id="readClearBtn">Close &amp; Wipe RAM</button>
+        <div class="read-info" id="readInfo">Drop any PDF, TXT, image, doc, ZIP, or .fearfiles here to preview in RAM.</div>
+      </div>
+
+      <div class="read-split" id="readDropZone">
+        <!-- Lazy ZIP Tree Pane -->
+        <aside class="zip-pane" id="zipPane">
+          <div class="zip-table-wrap">
+            <table class="zip-table">
+              <thead>
+                <tr>
+                  <th>File inside Archive</th>
+                  <th>Size</th>
+                  <th>Method</th>
+                </tr>
+              </thead>
+              <tbody id="zipTableBody"></tbody>
+            </table>
+          </div>
+        </aside>
+
+        <!-- Preview Stack -->
+        <div class="preview-pane">
+          <div class="preview-view preview-empty active" id="viewEmpty">Drop any file here to read or inspect it.
+
+• PDF, TXT, Code, Images, Binary Hex Dump
+• Encrypted .fearfiles (zero-disk RAM preview, 32 MiB cap)
+• .zip / .zip.fearfiles (lazy browse without full decryption)</div>
+
+          <div class="preview-view" id="viewText">
+            <pre class="preview-text" id="previewTextEl"></pre>
+          </div>
+
+          <div class="preview-view preview-image-wrap" id="viewImage">
+            <img id="previewImageEl" alt="Decrypted preview">
+          </div>
+
+          <div class="preview-view" id="viewPdf">
+            <iframe class="preview-pdf-frame" id="previewPdfEl" title="PDF Preview"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =======================================================================
+       Custom Password Modal (Never uses plaintext window.prompt)
+       ======================================================================= -->
+  <div class="modal-backdrop" id="pwModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="pwModalTitle">
+    <form class="modal-card" id="pwModalForm" autocomplete="off">
+      <div class="modal-title" id="pwModalTitle">Unlock FEAR File</div>
+      <div class="modal-body" id="pwModalMsg">Enter password:</div>
+      <div class="pw-wrap">
+        <input type="password" class="text-input" id="pwModalInput" placeholder="Enter password" autocomplete="off" spellcheck="false" required>
+        <button type="button" class="pw-toggle" data-target="pwModalInput">Show</button>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="pwModalCancel">Cancel</button>
+        <button type="submit" class="btn-primary" style="padding:8px 16px;" id="pwModalSubmit">Unlock</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- =======================================================================
+       Custom Info / Error Modal (Never uses window.alert)
+       ======================================================================= -->
+  <div class="modal-backdrop" id="msgModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="msgModalTitle">
+    <div class="modal-card">
+      <div class="modal-title" id="msgModalTitle">Notice</div>
+      <div class="modal-body" id="msgModalBody"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-primary" style="padding:8px 18px;" id="msgModalOk">OK</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  'use strict';
+
+  // =========================================================================
+  // 0. ENVIRONMENT CHECK & UTILITIES
+  // =========================================================================
+  if (!window.crypto || !window.crypto.subtle) {
+    document.getElementById('cryptoWarning').style.display = 'block';
   }
-  return new Blob(parts,{type:"application/octet-stream"});
-}
-async function parseFear(file,password){
-  assertSecure();const head=new Uint8Array(await file.slice(0,HEADER).arrayBuffer());
-  if(head.length!==HEADER||!equal(head.slice(0,6),MAGIC))throw new Error("Not a FEARW3 file. This web build currently accepts FEARW3 containers only.");
-  const salt=head.slice(6,22),baseIv=head.slice(22,34),iters=readU32(head,34),chunkSize=readU32(head,38),size=readU64(head,42),metaLen=readU32(head,50);
-  if(iters<600000||iters>5000000||chunkSize<65536||chunkSize>16*1024*1024)throw new Error("Unsupported or tampered header parameters.");
-  if(size>BigInt(Number.MAX_SAFE_INTEGER)||metaLen<TAG||metaLen>1024*1024||BigInt(HEADER+metaLen)>BigInt(file.size))throw new Error("Corrupt or unsupported FEAR header.");
-  const key=await deriveKey(password,salt,iters),metaCipher=new Uint8Array(await file.slice(HEADER,HEADER+metaLen).arrayBuffer());
-  let metaPlain;try{metaPlain=await aesDecrypt(key,makeIv(baseIv,0),head,metaCipher)}catch{throw new Error("Wrong password, or file header was tampered with.")}
-  let meta;try{meta=JSON.parse(decoder.decode(metaPlain))}catch{throw new Error("Invalid authenticated metadata.")}finally{metaPlain.fill(0)}
-  if(typeof meta.name!=="string"||!meta.name||meta.name.length>4096)throw new Error("Invalid original filename.");
-  const n=Number(size),chunks=Math.max(1,Math.ceil(n/chunkSize)),expected=BigInt(HEADER+metaLen)+size+BigInt(chunks)*(4n+BigInt(TAG));
-  if(expected!==BigInt(file.size))throw new Error("FEAR file length does not match its authenticated header.");
-  return {key,head,baseIv,chunkSize,size:n,meta,offset:HEADER+metaLen,chunks,file};
-}
-async function* decryptedChunks(ctx,onProgress=()=>{}){
-  let pos=ctx.offset;
-  for(let i=0;i<ctx.chunks;i++){
-    const lenBuf=new Uint8Array(await ctx.file.slice(pos,pos+4).arrayBuffer());if(lenBuf.length!==4)throw new Error("Truncated chunk record.");pos+=4;
-    const len=readU32(lenBuf),expected=ctx.size===0?0:Math.min(ctx.chunkSize,ctx.size-i*ctx.chunkSize);
-    if(len!==expected)throw new Error("Invalid chunk length or order.");
-    const cipher=new Uint8Array(await ctx.file.slice(pos,pos+len+TAG).arrayBuffer());if(cipher.length!==len+TAG)throw new Error("Truncated encrypted chunk.");pos+=len+TAG;
-    const aad=concat(ctx.head,u64(i),u32(len),new Uint8Array([i===ctx.chunks-1?1:0]));
-    let plain;try{plain=await aesDecrypt(ctx.key,makeIv(ctx.baseIv,i+1),aad,cipher)}catch{throw new Error("Chunk authentication failed. File is corrupted or tampered with.")}
-    onProgress(Math.round((i+1)/ctx.chunks*100));yield plain;
+
+  const textEncoder = new TextEncoder();
+  const textDecoder = new TextDecoder('utf-8', { fatal: false });
+
+  function wipeBytes(buf) {
+    if (buf instanceof Uint8Array) {
+      buf.fill(0);
+    } else if (buf instanceof ArrayBuffer) {
+      new Uint8Array(buf).fill(0);
+    }
   }
-  if(pos!==ctx.file.size)throw new Error("Unexpected trailing data after final chunk.");
-}
-async function decryptToBlob(file,password,onProgress=()=>{}){
-  const ctx=await parseFear(file,password),parts=[];try{for await(const chunk of decryptedChunks(ctx,onProgress)){parts.push(chunk)}}catch(e){for(const p of parts)p.fill(0);throw e}
-  return {blob:new Blob(parts,{type:ctx.meta.type||"application/octet-stream"}),name:safeName(ctx.meta.name),meta:ctx.meta};
-}
 
-$("tabs");
-document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchPage(b.dataset.page)));
-function switchPage(page){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.page===page));document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));if(page!=="player")stopPlayer();if(page!=="read")clearReader(false)}
-setupDrop("encDrop","encFiles",files=>{addFiles(encFiles,files);renderFiles($("encList"),encFiles)});
-setupDrop("decDrop","decFiles",files=>{addFiles(decFiles,[...files].filter(f=>f.name.toLowerCase().endsWith(".fearfiles")));renderFiles($("decList"),decFiles,true)});
-$("encryptBtn").addEventListener("click",async()=>{
- try{assertSecure();if(!encFiles.length)throw new Error("Choose at least one file.");const p=$("encPass").value,c=$("encConfirm").value;if(p.length<16)throw new Error("Use a password of at least 16 characters.");if(p!==c)throw new Error("Passwords do not match.");$("encryptBtn").disabled=true;
- for(let i=0;i<encFiles.length;i++){const f=encFiles[i];setProgress("enc",0,`Encrypting ${f.name} (${i+1}/${encFiles.length})…`);const blob=await encryptOne(f,p,pct=>setProgress("enc",pct,`Encrypting ${f.name} · ${pct}%`));downloadBlob(blob,safeName(f.name)+".fearfiles");}
- finishProgress("enc","Encryption complete. Save the downloaded .fearfiles containers.");toast("Encryption complete.");$("encPass").value="";$("encConfirm").value="";
- }catch(e){toast(e.message,true)}finally{$("encryptBtn").disabled=false}
-});
-$("decryptBtn").addEventListener("click",async()=>{
- try{assertSecure();if(!decFiles.length)throw new Error("Choose at least one .fearfiles file.");const p=$("decPass").value;if(!p)throw new Error("Enter the password.");$("decryptBtn").disabled=true;
- for(let i=0;i<decFiles.length;i++){const f=decFiles[i];setProgress("dec",0,`Authenticating ${f.name}…`);const result=await decryptToBlob(f,p,pct=>setProgress("dec",pct,`Decrypting ${f.name} · ${pct}%`));downloadBlob(result.blob,result.name)}
- finishProgress("dec","All selected files authenticated and decrypted.");toast("Decryption complete.");$("decPass").value="";
- }catch(e){toast(e.message,true)}finally{$("decryptBtn").disabled=false}
-});
+  function fmtBytes(b) {
+    const n = Number(b);
+    if (n < 1024) return `${n} B`;
+    if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
+    if (n < 1024 * 1024 * 1024) return `${(n / (1024 * 1024)).toFixed(2)} MB`;
+    return `${(n / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+  }
 
-function stopPlayer(){const v=$("video"),a=$("audio");v.pause();a.pause();v.removeAttribute("src");a.removeAttribute("src");v.load();a.load();v.hidden=true;a.hidden=true;if(playerUrl){URL.revokeObjectURL(playerUrl);playerUrl=null}$("playerEmpty").hidden=false;$("mediaName").textContent="No media loaded";$("mediaMeta").textContent="Encrypted playback · browser memory session"}
-async function loadPlayer(file){stopPlayer();const password=prompt("Enter the password to unlock "+file.name);if(password===null)return;if(!password)throw new Error("Password is required.");$("playerEmpty").hidden=false;$("playerEmpty").querySelector("h2").textContent="Authenticating & decrypting…";const result=await decryptToBlob(file,password);const ext=result.name.split(".").pop().toLowerCase(),isAudio=/^(mp3|flac|m4a|wav|ogg|opus|aac|wma|aiff|ape|wv)$/.test(ext);playerUrl=URL.createObjectURL(result.blob);const el=isAudio?$("audio"):$("video");el.src=playerUrl;el.hidden=false;$("playerEmpty").hidden=true;$("mediaName").textContent=result.name;$("mediaMeta").textContent=bytesLabel(result.blob.size)+" · authenticated FEARW3 media";el.load();try{await el.play()}catch{}}
-function openPlayerPicker(){const input=$("hiddenOpen");input.onchange=async()=>{if(input.files[0])try{await loadPlayer(input.files[0])}catch(e){stopPlayer();toast(e.message,true)}input.value=""};input.click()}
-$("playerOpen").onclick=openPlayerPicker;$("playerOpen2").onclick=openPlayerPicker;$("stopPlayer").onclick=stopPlayer;$("fullscreen").onclick=()=>{$("mediaStage").requestFullscreen?.()};
-function wipeReader(){if(readerUrl){URL.revokeObjectURL(readerUrl);readerUrl=null}readerZip=null;$("readerPreview").innerHTML='<div class="reader-empty"><span>▤</span><h2>Nothing opened yet</h2><p>Choose a PDF, image, text file, ZIP, or encrypted .fearfiles file.</p></div>';$("readerFile").textContent="No file open"}
-$("clearReader").onclick=()=>{wipeReader();toast("Reader cleared.")};
-setupDrop("readDrop","readFiles",files=>{if(files[0])openReader(files[0]).catch(e=>toast(e.message,true))});
-async function openReader(file){
- wipeReader();let blob=file,name=file.name;
- if(name.toLowerCase().endsWith(".fearfiles")){const pw=prompt("Password to unlock "+name);if(pw===null)return;if(!pw)throw new Error("Password is required.");const result=await decryptToBlob(file,pw);blob=result.blob;name=result.name}
- if(blob.size>MAX_PREVIEW && !name.toLowerCase().endsWith(".zip"))throw new Error("Preview is limited to 32 MiB. Use the Decrypt tab for larger files.");
- $("readerFile").textContent=name+" · "+bytesLabel(blob.size);const ext=name.split(".").pop().toLowerCase(),area=$("readerPreview");
- if(ext==="pdf"){readerUrl=URL.createObjectURL(blob);const frame=document.createElement("iframe");frame.className="preview-pdf";frame.src=readerUrl;frame.title="PDF preview";area.append(frame);return}
- if(["png","jpg","jpeg","gif","webp","bmp","svg"].includes(ext)){readerUrl=URL.createObjectURL(blob);const img=document.createElement("img");img.className="preview-image";img.src=readerUrl;img.alt=name;area.append(img);return}
- if(ext==="zip"){await openZip(blob,area);return}
- if(["txt","md","json","xml","html","htm","css","js","ts","cpp","c","h","hpp","py","java","rs","go","sh","bat","ini","cfg","yaml","yml","toml","csv","log","sql"].includes(ext)||blob.size<=MAX_PREVIEW){
-   const data=new Uint8Array(await blob.slice(0,MAX_PREVIEW).arrayBuffer());if(!data.includes(0)){const pre=document.createElement("pre");pre.className="preview-text";pre.textContent=decoder.decode(data);area.append(pre);return}
- }
- if(ext==="docx"||ext==="doc"||ext==="odt"){const p=document.createElement("p");p.className="preview-text";p.textContent="This document format is not rendered by the browser reader yet. For a safe preview, convert it to PDF or TXT locally, then open that copy.";area.append(p);return}
- const p=document.createElement("p");p.className="preview-text";p.textContent="This file type cannot be rendered as a document preview in this browser. Use Decrypt to save the original file.";area.append(p);
-}
-async function openZip(blob,area){
- if(!window.JSZip){await new Promise((resolve,reject)=>{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";s.onload=resolve;s.onerror=()=>reject(new Error("ZIP preview needs JSZip from the CDN. Check your connection."));document.head.append(s)})}
- const zip=await JSZip.loadAsync(blob,{checkCRC32:true});readerZip=zip;const list=document.createElement("div");list.className="zip-list";for(const [name,entry] of Object.entries(zip.files)){if(entry.dir)continue;const b=document.createElement("button");b.className="zip-entry";const n=document.createElement("span");n.textContent=name;const s=document.createElement("small");s.textContent="Preview";b.append(n,s);b.onclick=async()=>{if(entry._data?.uncompressedSize>MAX_PREVIEW)throw new Error("ZIP entry exceeds 32 MiB preview limit.");const data=await entry.async("uint8array");const ext=name.split(".").pop().toLowerCase();const subBlob=new Blob([data]);if(["png","jpg","jpeg","gif","webp","bmp"].includes(ext)){wipeReaderPreviewOnly();readerUrl=URL.createObjectURL(subBlob);const img=document.createElement("img");img.className="preview-image";img.src=readerUrl;area.append(img)}else{const pre=document.createElement("pre");pre.className="preview-text";pre.textContent=data.includes(0)?"Binary entry — preview unavailable.":decoder.decode(data);wipeReaderPreviewOnly();area.append(pre)}};list.append(b)}area.append(list)}
-function wipeReaderPreviewOnly(){if(readerUrl){URL.revokeObjectURL(readerUrl);readerUrl=null}const area=$("readerPreview");area.innerHTML=""}
-$("lockAll").onclick=()=>{stopPlayer();wipeReader();$("encPass").value="";$("encConfirm").value="";$("decPass").value="";toast("Session cleared. Browser-managed memory may not be immediately overwritten.")};
-window.addEventListener("beforeunload",()=>{stopPlayer();wipeReader()});
+  function fmtTime(sec) {
+    if (!Number.isFinite(sec) || sec < 0) return '00:00';
+    const s = Math.floor(sec);
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const r = s % 60;
+    const pad = (v) => String(v).padStart(2, '0');
+    return h > 0 ? `${h}:${pad(m)}:${pad(r)}` : `${pad(m)}:${pad(r)}`;
+  }
 
+  function getExt(filename) {
+    const idx = filename.lastIndexOf('.');
+    return idx > 0 ? filename.slice(idx + 1).toLowerCase() : '';
+  }
+
+  function sanitizeFilename(rawName) {
+    if (typeof rawName !== 'string' || rawName.length === 0 || rawName.length > 4096 || rawName.includes('\0')) {
+      throw new Error('Missing or invalid filename in metadata.');
+    }
+    const normalized = rawName.replace(/\\/g, '/');
+    const parts = normalized.split('/');
+    const base = parts[parts.length - 1].replace(/[\x00-\x1F\x7F]/g, '').trim();
+    if (!base || base === '.' || base === '..') {
+      throw new Error('Unsafe or invalid filename in metadata.');
+    }
+    return base;
+  }
+
+  // Toggle password visibility buttons
+  document.querySelectorAll('.pw-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const inp = document.getElementById(btn.dataset.target);
+      if (!inp) return;
+      const show = inp.type === 'password';
+      inp.type = show ? 'text' : 'password';
+      btn.textContent = show ? 'Hide' : 'Show';
+    });
+  });
+
+  // =========================================================================
+  // 1. CUSTOM MODALS (No window.prompt / window.alert)
+  // =========================================================================
+  const pwModalBackdrop = document.getElementById('pwModalBackdrop');
+  const pwModalForm = document.getElementById('pwModalForm');
+  const pwModalTitle = document.getElementById('pwModalTitle');
+  const pwModalMsg = document.getElementById('pwModalMsg');
+  const pwModalInput = document.getElementById('pwModalInput');
+  const pwModalCancel = document.getElementById('pwModalCancel');
+
+  let pwModalResolver = null;
+
+  function promptPasswordModal(title, message) {
+    return new Promise((resolve) => {
+      pwModalTitle.textContent = title;
+      pwModalMsg.textContent = message;
+      pwModalInput.value = '';
+      pwModalInput.type = 'password';
+      const toggleBtn = pwModalForm.querySelector('.pw-toggle');
+      if (toggleBtn) toggleBtn.textContent = 'Show';
+
+      pwModalResolver = resolve;
+      pwModalBackdrop.classList.add('open');
+      setTimeout(() => pwModalInput.focus(), 20);
+    });
+  }
+
+  function closePasswordModal(resultBytes) {
+    pwModalInput.value = '';
+    pwModalBackdrop.classList.remove('open');
+    if (pwModalResolver) {
+      const fn = pwModalResolver;
+      pwModalResolver = null;
+      fn(resultBytes);
+    }
+  }
+
+  pwModalForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = pwModalInput.value;
+    if (!val) return;
+    const utf8 = textEncoder.encode(val);
+    closePasswordModal(utf8);
+  });
+
+  pwModalCancel.addEventListener('click', () => closePasswordModal(null));
+  pwModalBackdrop.addEventListener('click', (e) => {
+    if (e.target === pwModalBackdrop) closePasswordModal(null);
+  });
+
+  // Message modal
+  const msgModalBackdrop = document.getElementById('msgModalBackdrop');
+  const msgModalTitle = document.getElementById('msgModalTitle');
+  const msgModalBody = document.getElementById('msgModalBody');
+  const msgModalOk = document.getElementById('msgModalOk');
+
+  function showMessageModal(title, body, isError = false) {
+    msgModalTitle.textContent = title;
+    msgModalTitle.classList.toggle('error', isError);
+    msgModalBody.textContent = body;
+    msgModalBackdrop.classList.add('open');
+    msgModalOk.focus();
+  }
+
+  msgModalOk.addEventListener('click', () => msgModalBackdrop.classList.remove('open'));
+  msgModalBackdrop.addEventListener('click', (e) => {
+    if (e.target === msgModalBackdrop) msgModalBackdrop.classList.remove('open');
+  });
+
+  // =========================================================================
+  // 2. FEARW3 / FEARW2 CRYPTO CORE (100% Binary Compatible with Desktop)
+  // =========================================================================
+  const FearCrypto = (() => {
+    const MAGIC_V3 = new Uint8Array([0x46, 0x45, 0x41, 0x52, 0x57, 0x33]); // "FEARW3"
+    const MAGIC_V2 = new Uint8Array([0x46, 0x45, 0x41, 0x52, 0x57, 0x32]); // "FEARW2"
+    const DEFAULT_ITERS = 1200000;
+    const DEFAULT_CHUNK = 4 * 1024 * 1024; // 4 MiB
+    const SALT_LEN = 16;
+    const IV_LEN = 12;
+    const TAG_LEN = 16;
+    const HEADER_FIXED_LEN = 54;
+    const MAX_META_CIPHER = 1024 * 1024;
+
+    const MEDIA_EXTS = new Set([
+      'mkv', 'mp4', 'm4v', 'webm', 'mov', 'avi', 'ts', 'm2ts', 'flv', 'wmv', 'ogv', '3gp',
+      'mp3', 'flac', 'alac', 'm4a', 'wav', 'ogg', 'opus', 'aac', 'wma', 'aiff', 'ape', 'wv'
+    ]);
+
+    const AUDIO_EXTS = new Set([
+      'mp3', 'flac', 'alac', 'm4a', 'wav', 'ogg', 'opus', 'aac', 'wma', 'aiff', 'ape', 'wv'
+    ]);
+
+    function bytesEqual(a, b, len) {
+      if (a.length < len || b.length < len) return false;
+      for (let i = 0; i < len; i++) {
+        if (a[i] !== b[i]) return false;
+      }
+      return true;
+    }
+
+    function makeChunkIv(baseIv, indexBigInt) {
+      const outIv = new Uint8Array(IV_LEN);
+      outIv.set(baseIv);
+      let x = BigInt(indexBigInt);
+      for (let i = 11; i >= 4; i--) {
+        outIv[i] ^= Number(x & 0xFFn);
+        x >>= 8n;
+      }
+      return outIv;
+    }
+
+    function buildChunkAad(header, chunkIdxBigInt, plainLen, isFinal) {
+      if (header.isV3) {
+        const aad = new Uint8Array(HEADER_FIXED_LEN + 8 + 4 + 1);
+        aad.set(header.fixedHeader, 0);
+        const dv = new DataView(aad.buffer);
+        dv.setBigUint64(HEADER_FIXED_LEN, BigInt(chunkIdxBigInt), false);
+        dv.setUint32(HEADER_FIXED_LEN + 8, plainLen, false);
+        aad[HEADER_FIXED_LEN + 12] = isFinal ? 1 : 0;
+        return aad;
+      } else {
+        const aad = new Uint8Array(6 + 8 + 4);
+        aad.set(MAGIC_V2, 0);
+        const dv = new DataView(aad.buffer);
+        dv.setBigUint64(6, BigInt(chunkIdxBigInt), false);
+        dv.setUint32(14, plainLen, false);
+        return aad;
+      }
+    }
+
+    async function isFearFile(file) {
+      if (!file || file.size < 6) return false;
+      const magic = new Uint8Array(await file.slice(0, 6).arrayBuffer());
+      return bytesEqual(magic, MAGIC_V3, 6) || bytesEqual(magic, MAGIC_V2, 6);
+    }
+
+    // Derives a non-extractable AES-256-GCM CryptoKey and zeroes passwordBytes.
+    async function deriveKeyPBKDF2(passwordBytes, salt, iterations) {
+      if (!(passwordBytes instanceof Uint8Array) || passwordBytes.length === 0 || passwordBytes.length > 1024 * 1024) {
+        throw new Error('Invalid password length.');
+      }
+      if (iterations < 600000 || iterations > 5000000) {
+        throw new Error('Unsupported or tampered PBKDF2 iteration count.');
+      }
+      if (!window.crypto || !window.crypto.subtle) {
+        throw new Error('Web Crypto API is unavailable.');
+      }
+
+      const baseKey = await crypto.subtle.importKey(
+        'raw',
+        passwordBytes,
+        'PBKDF2',
+        false,
+        ['deriveKey']
+      );
+
+      return await crypto.subtle.deriveKey(
+        {
+          name: 'PBKDF2',
+          salt,
+          iterations,
+          hash: 'SHA-256'
+        },
+        baseKey,
+        {
+          name: 'AES-GCM',
+          length: 256
+        },
+        false, // Non-extractable key!
+        ['encrypt', 'decrypt']
+      );
+    }
+
+    async function aesGcmEncrypt(key, iv, aad, plainBytes) {
+      const alg = { name: 'AES-GCM', iv, tagLength: 128 };
+      if (aad && aad.byteLength > 0) alg.additionalData = aad;
+      const cipherBuf = await crypto.subtle.encrypt(alg, key, plainBytes);
+      return new Uint8Array(cipherBuf);
+    }
+
+    async function aesGcmDecrypt(key, iv, aad, cipherWithTagBytes) {
+      if (cipherWithTagBytes.byteLength < TAG_LEN) {
+        throw new Error('Ciphertext shorter than GCM tag.');
+      }
+      const alg = { name: 'AES-GCM', iv, tagLength: 128 };
+      if (aad && aad.byteLength > 0) alg.additionalData = aad;
+      const plainBuf = await crypto.subtle.decrypt(alg, key, cipherWithTagBytes);
+      return new Uint8Array(plainBuf);
+    }
+
+    async function openAndVerifyHeader(file, passwordBytes) {
+      const fileSize = BigInt(file.size);
+      if (fileSize < BigInt(HEADER_FIXED_LEN)) {
+        throw new Error('File too short to be a FEAR file.');
+      }
+
+      const fixedHeader = new Uint8Array(await file.slice(0, HEADER_FIXED_LEN).arrayBuffer());
+      let isV3 = true;
+      if (bytesEqual(fixedHeader, MAGIC_V3, 6)) {
+        isV3 = true;
+      } else if (bytesEqual(fixedHeader, MAGIC_V2, 6)) {
+        isV3 = false;
+      } else {
+        throw new Error('Not a valid FEARW3 or FEARW2 file.');
+      }
+
+      const dv = new DataView(fixedHeader.buffer, fixedHeader.byteOffset, fixedHeader.byteLength);
+      const salt = fixedHeader.slice(6, 22);
+      const baseIv = fixedHeader.slice(22, 34);
+      const iterations = dv.getUint32(34, false);
+      const chunkSize = dv.getUint32(38, false);
+      const originalSize = dv.getBigUint64(42, false);
+      const metaLen = dv.getUint32(50, false);
+
+      if (iterations < 600000 || iterations > 5000000 || chunkSize < 65536 || chunkSize > 16 * 1024 * 1024) {
+        throw new Error('Unsupported or tampered header parameters.');
+      }
+
+      const dataOffset = BigInt(HEADER_FIXED_LEN) + BigInt(metaLen);
+      if (metaLen < TAG_LEN || metaLen > MAX_META_CIPHER || dataOffset > fileSize) {
+        throw new Error('Corrupted FEAR header.');
+      }
+
+      const metaCipher = new Uint8Array(
+        await file.slice(HEADER_FIXED_LEN, HEADER_FIXED_LEN + metaLen).arrayBuffer()
+      );
+
+      const key = await deriveKeyPBKDF2(passwordBytes, salt, iterations);
+      const metaIv = makeChunkIv(baseIv, 0n);
+      const aad = isV3 ? fixedHeader : null;
+
+      let metaPlain;
+      try {
+        metaPlain = await aesGcmDecrypt(key, metaIv, aad, metaCipher);
+      } catch {
+        throw new Error('Wrong password, or file header was tampered with.');
+      }
+
+      let metaObj;
+      try {
+        const jsonText = textDecoder.decode(metaPlain);
+        metaObj = JSON.parse(jsonText);
+      } catch {
+        wipeBytes(metaPlain);
+        throw new Error('Corrupted metadata JSON.');
+      }
+      wipeBytes(metaPlain);
+
+      if (!metaObj || typeof metaObj !== 'object' || Array.isArray(metaObj)) {
+        throw new Error('Corrupted metadata JSON.');
+      }
+
+      const origName = typeof metaObj.name === 'string' ? metaObj.name : '';
+      const origMime = typeof metaObj.type === 'string' && metaObj.type ? metaObj.type : 'application/octet-stream';
+      if (!origName || origName.length > 4096 || origName.includes('\0')) {
+        throw new Error('Missing or invalid filename in metadata.');
+      }
+
+      const chunkSizeBig = BigInt(chunkSize);
+      const totalChunks = originalSize === 0n
+        ? 1n
+        : (originalSize / chunkSizeBig) + (originalSize % chunkSizeBig !== 0n ? 1n : 0n);
+
+      const expectedSize = dataOffset + originalSize + totalChunks * BigInt(4 + TAG_LEN);
+      if (expectedSize !== fileSize) {
+        throw new Error('FEAR file length does not match authenticated header (truncated or trailing data).');
+      }
+
+      return {
+        isV3,
+        fixedHeader,
+        salt,
+        baseIv,
+        iterations,
+        chunkSize,
+        originalSize,
+        dataOffset,
+        totalChunks,
+        origName,
+        origMime,
+        key
+      };
+    }
+
+    function guessMimeFromExt(filename, fallback) {
+      const ext = getExt(filename);
+      const map = {
+        mp4: 'video/mp4', m4v: 'video/mp4', webm: 'video/webm', mov: 'video/quicktime',
+        ogv: 'video/ogg', mkv: 'video/x-matroska', avi: 'video/x-msvideo',
+        mp3: 'audio/mpeg', flac: 'audio/flac', wav: 'audio/wav', ogg: 'audio/ogg',
+        opus: 'audio/opus', m4a: 'audio/mp4', aac: 'audio/aac',
+        pdf: 'application/pdf', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg',
+        gif: 'image/gif', webp: 'image/webp', bmp: 'image/bmp', svg: 'image/svg+xml'
+      };
+      return map[ext] || fallback || 'application/octet-stream';
+    }
+
+    return {
+      MAGIC_V3,
+      MAGIC_V2,
+      DEFAULT_ITERS,
+      DEFAULT_CHUNK,
+      SALT_LEN,
+      IV_LEN,
+      TAG_LEN,
+      HEADER_FIXED_LEN,
+      makeChunkIv,
+      buildChunkAad,
+      isFearFile,
+      deriveKeyPBKDF2,
+      aesGcmEncrypt,
+      aesGcmDecrypt,
+      openAndVerifyHeader,
+      isSupportedMedia: (name) => MEDIA_EXTS.has(getExt(name)),
+      isAudioOnly: (name) => AUDIO_EXTS.has(getExt(name)),
+      guessMimeFromExt
+    };
+  })();
+
+  // =========================================================================
+  // 3. ZERO-DISK RANDOM-ACCESS STREAM (Used by Lazy ZIP Inspector & Reader)
+  // =========================================================================
+  class FearMediaStream {
+    constructor(file, header) {
+      this.file = file;
+      this.h = header;
+      this.cachedChunkIdx = -1n;
+      this.chunkPlain = null;
+    }
+
+    async loadChunk(idxBigInt) {
+      if (idxBigInt === this.cachedChunkIdx && this.chunkPlain) return true;
+      if (idxBigInt < 0n || idxBigInt >= this.h.totalChunks) return false;
+
+      // Wipe previous cached plaintext chunk immediately
+      if (this.chunkPlain) {
+        wipeBytes(this.chunkPlain);
+        this.chunkPlain = null;
+      }
+      this.cachedChunkIdx = -1n;
+
+      const chunkSizeBig = BigInt(this.h.chunkSize);
+      const recordSize = 4n + chunkSizeBig + BigInt(FearCrypto.TAG_LEN);
+      const fileOff = this.h.dataOffset + idxBigInt * recordSize;
+
+      const chunkStart = idxBigInt * chunkSizeBig;
+      const remaining = this.h.originalSize - chunkStart;
+      const expectedLen = this.h.originalSize === 0n
+        ? 0
+        : Number(remaining < chunkSizeBig ? remaining : chunkSizeBig);
+
+      const readEnd = Number(fileOff) + 4 + expectedLen + FearCrypto.TAG_LEN;
+      const rawRecord = new Uint8Array(await this.file.slice(Number(fileOff), readEnd).arrayBuffer());
+      if (rawRecord.byteLength !== 4 + expectedLen + FearCrypto.TAG_LEN) {
+        return false;
+      }
+
+      const dv = new DataView(rawRecord.buffer, rawRecord.byteOffset, 4);
+      const plainLen = dv.getUint32(0, false);
+      if (plainLen !== expectedLen) return false;
+
+      const cipherWithTag = rawRecord.subarray(4);
+      const iv = FearCrypto.makeChunkIv(this.h.baseIv, idxBigInt + 1n);
+      const aad = FearCrypto.buildChunkAad(this.h, idxBigInt, plainLen, idxBigInt === this.h.totalChunks - 1n);
+
+      try {
+        const plain = await FearCrypto.aesGcmDecrypt(this.h.key, iv, aad, cipherWithTag);
+        if (plain.byteLength !== plainLen) {
+          wipeBytes(plain);
+          return false;
+        }
+        this.chunkPlain = plain;
+        this.cachedChunkIdx = idxBigInt;
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    async readAt(offsetBigInt, len) {
+      const off = BigInt(offsetBigInt);
+      const length = Number(len);
+      if (off < 0n || off > this.h.originalSize || BigInt(length) > this.h.originalSize - off) {
+        return null;
+      }
+      const out = new Uint8Array(length);
+      const chunkSizeBig = BigInt(this.h.chunkSize);
+      let copied = 0;
+
+      while (copied < length) {
+        const cur = off + BigInt(copied);
+        const chunkIdx = cur / chunkSizeBig;
+        const chunkOff = Number(cur % chunkSizeBig);
+        const ok = await this.loadChunk(chunkIdx);
+        if (!ok || !this.chunkPlain || chunkOff >= this.chunkPlain.byteLength) {
+          wipeBytes(out);
+          return null;
+        }
+        const avail = this.chunkPlain.byteLength - chunkOff;
+        const step = Math.min(length - copied, avail);
+        out.set(this.chunkPlain.subarray(chunkOff, chunkOff + step), copied);
+        copied += step;
+      }
+      return out;
+    }
+
+    wipeAndClose() {
+      if (this.chunkPlain) {
+        wipeBytes(this.chunkPlain);
+        this.chunkPlain = null;
+      }
+      this.cachedChunkIdx = -1n;
+      this.file = null;
+      this.h = null;
+    }
+  }
+
+  // =========================================================================
+  // 4. LAZY ZIP INSPECTOR (Reads Central Directory without full decryption!)
+  // =========================================================================
+  const ZipInspector = (() => {
+    const MAX_CD_BYTES = 16 * 1024 * 1024;
+    const MAX_ENTRIES = 10000;
+    const MAX_PREVIEW_BYTES = 32 * 1024 * 1024;
+
+    // Precompute standard IEEE 802.3 CRC-32 table
+    const CRC_TABLE = new Uint32Array(256);
+    for (let i = 0; i < 256; i++) {
+      let c = i;
+      for (let k = 0; k < 8; k++) {
+        c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      }
+      CRC_TABLE[i] = c >>> 0;
+    }
+
+    function calculateCrc32(bytes) {
+      let crc = 0xFFFFFFFF;
+      for (let i = 0; i < bytes.length; i++) {
+        crc = CRC_TABLE[(crc ^ bytes[i]) & 0xFF] ^ (crc >>> 8);
+      }
+      return (crc ^ 0xFFFFFFFF) >>> 0;
+    }
+
+    function rd16LE(b, off) {
+      return b[off] | (b[off + 1] << 8);
+    }
+
+    function rd32LE(b, off) {
+      return (b[off] | (b[off + 1] << 8) | (b[off + 2] << 16) | (b[off + 3] << 24)) >>> 0;
+    }
+
+    async function listEntries(totalSizeBig, readAt) {
+      const totalSize = BigInt(totalSizeBig);
+      if (totalSize < 22n) throw new Error('File too small to be a ZIP archive.');
+
+      const tailLen = Number(totalSize < 65557n ? totalSize : 65557n);
+      const tail = await readAt(totalSize - BigInt(tailLen), tailLen);
+      if (!tail) throw new Error('Failed to read ZIP tail.');
+
+      let eocdPos = -1;
+      for (let i = tailLen - 22; i >= 0; i--) {
+        if (rd32LE(tail, i) === 0x06054b50) {
+          const commentLen = rd16LE(tail, i + 20);
+          if (i + 22 + commentLen === tailLen) {
+            eocdPos = i;
+            break;
+          }
+        }
+      }
+      wipeBytes(tail);
+      if (eocdPos < 0) throw new Error('ZIP End of Central Directory not found or invalid.');
+
+      const eocdOffset = totalSize - BigInt(tailLen) + BigInt(eocdPos);
+      const eocd = await readAt(eocdOffset, 22);
+      if (!eocd) throw new Error('Cannot read ZIP directory record.');
+
+      const diskNum = rd16LE(eocd, 4);
+      const cdDisk = rd16LE(eocd, 6);
+      const diskEntries = rd16LE(eocd, 8);
+      const totalEntries = rd16LE(eocd, 10);
+      const cdSize = rd32LE(eocd, 12);
+      const cdOffset = rd32LE(eocd, 16);
+      wipeBytes(eocd);
+
+      if (diskNum !== 0 || cdDisk !== 0 || diskEntries !== totalEntries) {
+        throw new Error('Multi-disk ZIP archives are not supported.');
+      }
+      if (totalEntries === 0xFFFF || cdSize === 0xFFFFFFFF || cdOffset === 0xFFFFFFFF) {
+        throw new Error('ZIP64 archives are not supported by this safe previewer.');
+      }
+      if (totalEntries > MAX_ENTRIES || cdSize > MAX_CD_BYTES || BigInt(cdOffset) + BigInt(cdSize) > eocdOffset) {
+        throw new Error('ZIP central directory exceeds safety limits or has invalid bounds.');
+      }
+
+      const cd = cdSize > 0 ? await readAt(BigInt(cdOffset), cdSize) : new Uint8Array(0);
+      if (!cd) throw new Error('Failed to read ZIP Central Directory.');
+
+      const entries = [];
+      let pos = 0;
+
+      try {
+        for (let n = 0; n < totalEntries; n++) {
+          if (pos > cd.length || cd.length - pos < 46 || rd32LE(cd, pos) !== 0x02014b50) {
+            throw new Error('Malformed ZIP central directory entry.');
+          }
+          const flags = rd16LE(cd, pos + 8);
+          const method = rd16LE(cd, pos + 10);
+          const crc32 = rd32LE(cd, pos + 16);
+          const compSize = rd32LE(cd, pos + 20);
+          const uncompSize = rd32LE(cd, pos + 24);
+          const nameLen = rd16LE(cd, pos + 28);
+          const extraLen = rd16LE(cd, pos + 30);
+          const commentLen = rd16LE(cd, pos + 32);
+          const localHeaderOffset = rd32LE(cd, pos + 42);
+          const recLen = 46 + nameLen + extraLen + commentLen;
+
+          if (recLen > cd.length - pos) {
+            throw new Error('ZIP entry length exceeds central directory.');
+          }
+          if ((flags & 0x0001) || (flags & 0x0040)) {
+            throw new Error('Encrypted ZIP entries are not supported.');
+          }
+          if (compSize === 0xFFFFFFFF || uncompSize === 0xFFFFFFFF || localHeaderOffset === 0xFFFFFFFF) {
+            throw new Error('ZIP64 entry is not supported.');
+          }
+
+          const name = textDecoder.decode(cd.subarray(pos + 46, pos + 46 + nameLen));
+          if (
+            !name ||
+            name.includes('\0') ||
+            name.startsWith('/') ||
+            name.startsWith('\\') ||
+            name.includes('../') ||
+            name === '..' ||
+            name.includes('/../') ||
+            name.includes('\\..\\')
+          ) {
+            throw new Error('Unsafe ZIP entry path rejected.');
+          }
+
+          if (
+            uncompSize > MAX_PREVIEW_BYTES ||
+            (compSize === 0 && uncompSize !== 0) ||
+            (compSize > 0 && BigInt(uncompSize) > BigInt(compSize) * 200n)
+          ) {
+            throw new Error('ZIP entry exceeds preview or compression-ratio limits.');
+          }
+
+          if (BigInt(localHeaderOffset) + 30n > totalSize) {
+            throw new Error('ZIP local header offset is outside archive.');
+          }
+
+          entries.push({
+            name,
+            method,
+            compSize,
+            uncompSize,
+            localHeaderOffset,
+            crc32,
+            isDir: name.endsWith('/')
+          });
+
+          pos += recLen;
+        }
+
+        if (pos !== cd.length) {
+          throw new Error('Unexpected bytes in ZIP central directory.');
+        }
+      } finally {
+        wipeBytes(cd);
+      }
+
+      return entries;
+    }
+
+    async function inflateRawBounded(compBytes, expectedSize) {
+      if (typeof DecompressionStream === 'undefined') {
+        throw new Error('Deflate preview requires DecompressionStream support in this browser.');
+      }
+
+      const ds = new DecompressionStream('deflate-raw');
+      const writer = ds.writable.getWriter();
+      const reader = ds.readable.getReader();
+
+      const writePromise = (async () => {
+        await writer.write(compBytes);
+        await writer.close();
+      })();
+
+      const out = new Uint8Array(expectedSize);
+      let written = 0;
+
+      try {
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          if (written + value.byteLength > expectedSize) {
+            wipeBytes(value);
+            await reader.cancel();
+            throw new Error('Deflate stream exceeded declared uncompressed size (ZIP bomb rejected).');
+          }
+          out.set(value, written);
+          written += value.byteLength;
+          wipeBytes(value);
+        }
+        await writePromise;
+      } catch (err) {
+        wipeBytes(out);
+        throw err;
+      }
+
+      if (written !== expectedSize) {
+        wipeBytes(out);
+        throw new Error('Deflate size validation failed.');
+      }
+      return out;
+    }
+
+    async function extractEntryToRam(entry, totalSizeBig, readAt) {
+      const totalSize = BigInt(totalSizeBig);
+      if (entry.isDir) return new Uint8Array(0);
+      if (entry.uncompSize > MAX_PREVIEW_BYTES || entry.compSize > MAX_PREVIEW_BYTES) {
+        throw new Error('Entry exceeds the 32 MiB compressed/decompressed preview limit.');
+      }
+
+      const lhOff = BigInt(entry.localHeaderOffset);
+      if (lhOff + 30n > totalSize) throw new Error('Invalid ZIP local file header.');
+      const lh = await readAt(lhOff, 30);
+      if (!lh || rd32LE(lh, 0) !== 0x04034b50) {
+        if (lh) wipeBytes(lh);
+        throw new Error('Invalid ZIP local file header.');
+      }
+
+      const flags = rd16LE(lh, 6);
+      const method = rd16LE(lh, 8);
+      const nameLen = rd16LE(lh, 26);
+      const extraLen = rd16LE(lh, 28);
+      wipeBytes(lh);
+
+      if ((flags & 0x0001) || method !== entry.method || lhOff + 30n + BigInt(nameLen) + BigInt(extraLen) > totalSize) {
+        throw new Error('ZIP local/central header mismatch.');
+      }
+
+      const localNameBytes = nameLen > 0 ? await readAt(lhOff + 30n, nameLen) : new Uint8Array(0);
+      if (!localNameBytes) throw new Error('Cannot read ZIP local filename.');
+      const decodedLocalName = textDecoder.decode(localNameBytes);
+      wipeBytes(localNameBytes);
+      if (decodedLocalName !== entry.name) {
+        throw new Error('ZIP local/central filename mismatch.');
+      }
+
+      const dataOff = lhOff + 30n + BigInt(nameLen) + BigInt(extraLen);
+      if (dataOff > totalSize || BigInt(entry.compSize) > totalSize - dataOff) {
+        throw new Error('ZIP compressed data lies outside archive.');
+      }
+
+      let out;
+      if (entry.method === 0) {
+        if (entry.compSize !== entry.uncompSize) {
+          throw new Error('Invalid stored ZIP entry sizes.');
+        }
+        out = entry.compSize > 0 ? await readAt(dataOff, entry.compSize) : new Uint8Array(0);
+        if (!out) throw new Error('Failed to read stored ZIP entry.');
+      } else if (entry.method === 8) {
+        const comp = entry.compSize > 0 ? await readAt(dataOff, entry.compSize) : new Uint8Array(0);
+        if (!comp) throw new Error('Failed to read compressed ZIP entry.');
+        try {
+          out = await inflateRawBounded(comp, entry.uncompSize);
+        } finally {
+          wipeBytes(comp);
+        }
+      } else {
+        throw new Error(`Unsupported ZIP compression method (${entry.method}).`);
+      }
+
+      if (calculateCrc32(out) !== entry.crc32) {
+        wipeBytes(out);
+        throw new Error('ZIP CRC-32 validation failed.');
+      }
+      return out;
+    }
+
+    return { listEntries, extractEntryToRam };
+  })();
+
+  // =========================================================================
+  // 5. FILE OUTPUT HELPER (File System Access API + Automatic Blob Fallback)
+  // =========================================================================
+  async function pickOutputDirectoryIfSupported() {
+    if (typeof window.showDirectoryPicker === 'function') {
+      try {
+        return await window.showDirectoryPicker({ mode: 'readwrite' });
+      } catch (err) {
+        // User explicitly cancelled picker -> abort operation
+        if (err && err.name === 'AbortError') {
+          return 'CANCELLED';
+        }
+        // In sandboxed iframes or restricted contexts, fall back to browser downloads
+        return null;
+      }
+    }
+    return null;
+  }
+
+  async function createUniqueFileInDir(dirHandle, desiredName) {
+    const dot = desiredName.lastIndexOf('.');
+    const base = dot > 0 ? desiredName.slice(0, dot) : desiredName;
+    const ext = dot > 0 ? desiredName.slice(dot) : '';
+
+    for (let n = 0; n < 10000; n++) {
+      const candidate = n === 0 ? desiredName : `${base} (${n})${ext}`;
+      try {
+        await dirHandle.getFileHandle(candidate, { create: false });
+        // Already exists, try next
+      } catch (err) {
+        if (err && err.name === 'NotFoundError') {
+          const handle = await dirHandle.getFileHandle(candidate, { create: true });
+          return { handle, name: candidate };
+        }
+        throw err;
+      }
+    }
+    throw new Error('Too many duplicate filenames in output directory.');
+  }
+
+  function triggerBlobDownload(parts, filename, mimeType = 'application/octet-stream') {
+    const blob = new Blob(parts, { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    // Revoke shortly after download starts
+    setTimeout(() => URL.revokeObjectURL(url), 15000);
+  }
+
+  // =========================================================================
+  // 6. VAULT CONTROLLER (Encrypt & Decrypt Tabs)
+  // =========================================================================
+  function createVaultController(encryptMode) {
+    const prefix = encryptMode ? 'enc' : 'dec';
+    const dropList = document.getElementById(`${prefix}DropList`);
+    const fileInput = document.getElementById(`${prefix}FileInput`);
+    const chooseBtn = document.getElementById(`${prefix}ChooseBtn`);
+    const clearBtn = document.getElementById(`${prefix}ClearBtn`);
+    const pw1 = document.getElementById(`${prefix}Pw1`);
+    const pw2 = encryptMode ? document.getElementById(`${prefix}Pw2`) : null;
+    const runBtn = document.getElementById(`${prefix}RunBtn`);
+    const cancelBtn = document.getElementById(`${prefix}CancelBtn`);
+    const progWrap = document.getElementById(`${prefix}ProgressWrap`);
+    const progFill = document.getElementById(`${prefix}ProgressFill`);
+    const statusEl = document.getElementById(`${prefix}Status`);
+
+    let files = [];
+    let running = false;
+    let cancelRequested = false;
+
+    function setStatus(msg, cls = '') {
+      statusEl.textContent = msg;
+      statusEl.className = 'status-line' + (cls ? ` ${cls}` : '');
+    }
+
+    function renderFileList() {
+      dropList.innerHTML = '';
+      if (files.length === 0) {
+        const ph = document.createElement('div');
+        ph.className = 'drop-placeholder';
+        ph.innerHTML = encryptMode
+          ? 'Drop files here or click "Choose Files" to encrypt with AES-256-GCM + PBKDF2-SHA256 (1,200,000 iterations).<br>100% binary compatible with FEARFiles Desktop.'
+          : 'Drop .fearfiles here or click "Choose Files" to authenticate and decrypt.<br>Supports FEARW3 and legacy FEARW2 formats.';
+        dropList.appendChild(ph);
+        return;
+      }
+
+      files.forEach((f, idx) => {
+        const row = document.createElement('div');
+        row.className = 'file-row';
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'file-row-name';
+        nameSpan.textContent = f.name;
+
+        const right = document.createElement('div');
+        right.style.display = 'flex';
+        right.style.alignItems = 'center';
+        right.style.gap = '8px';
+
+        const meta = document.createElement('span');
+        meta.className = 'file-row-meta';
+        meta.textContent = fmtBytes(f.size);
+
+        const rm = document.createElement('button');
+        rm.className = 'file-row-rm';
+        rm.textContent = '×';
+        rm.title = 'Remove file';
+        rm.disabled = running;
+        rm.addEventListener('click', () => {
+          files.splice(idx, 1);
+          renderFileList();
+        });
+
+        right.appendChild(meta);
+        right.appendChild(rm);
+        row.appendChild(nameSpan);
+        row.appendChild(right);
+        dropList.appendChild(row);
+      });
+    }
+
+    function addFiles(fileList) {
+      if (running) return;
+      for (const f of fileList) {
+        files.push(f);
+      }
+      renderFileList();
+      setStatus('');
+    }
+
+    chooseBtn.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) addFiles(fileInput.files);
+      fileInput.value = '';
+    });
+
+    clearBtn.addEventListener('click', () => {
+      if (running) return;
+      files = [];
+      renderFileList();
+      setStatus('');
+    });
+
+    dropList.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      if (!running) dropList.classList.add('drag-over');
+    });
+    dropList.addEventListener('dragleave', () => dropList.classList.remove('drag-over'));
+    dropList.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropList.classList.remove('drag-over');
+      if (!running && e.dataTransfer && e.dataTransfer.files.length) {
+        addFiles(e.dataTransfer.files);
+      }
+    });
+
+    cancelBtn.addEventListener('click', () => {
+      if (running) {
+        cancelRequested = true;
+        cancelBtn.disabled = true;
+        setStatus('Cancelling after current chunk...');
+      }
+    });
+
+    async function encryptSingleFile(file, passwordBytes, dirHandle, onProgress) {
+      const fileSize = BigInt(file.size);
+      const salt = new Uint8Array(FearCrypto.SALT_LEN);
+      const baseIv = new Uint8Array(FearCrypto.IV_LEN);
+      crypto.getRandomValues(salt);
+      crypto.getRandomValues(baseIv);
+
+      const key = await FearCrypto.deriveKeyPBKDF2(passwordBytes, salt, FearCrypto.DEFAULT_ITERS);
+
+      const metaJsonStr = JSON.stringify({
+        name: file.name,
+        type: file.type || 'application/octet-stream'
+      });
+      const metaPlain = textEncoder.encode(metaJsonStr);
+
+      const fixedHeader = new Uint8Array(FearCrypto.HEADER_FIXED_LEN);
+      fixedHeader.set(FearCrypto.MAGIC_V3, 0);
+      fixedHeader.set(salt, 6);
+      fixedHeader.set(baseIv, 22);
+      const hdv = new DataView(fixedHeader.buffer);
+      hdv.setUint32(34, FearCrypto.DEFAULT_ITERS, false);
+      hdv.setUint32(38, FearCrypto.DEFAULT_CHUNK, false);
+      hdv.setBigUint64(42, fileSize, false);
+      hdv.setUint32(50, metaPlain.byteLength + FearCrypto.TAG_LEN, false);
+
+      const metaIv = FearCrypto.makeChunkIv(baseIv, 0n);
+      const metaCipher = await FearCrypto.aesGcmEncrypt(key, metaIv, fixedHeader, metaPlain);
+      wipeBytes(metaPlain);
+
+      const outName = `${file.name}.fearfiles`;
+      let writable = null;
+      let createdName = outName;
+      const blobParts = dirHandle ? null : [];
+
+      if (dirHandle) {
+        const res = await createUniqueFileInDir(dirHandle, outName);
+        createdName = res.name;
+        writable = await res.handle.createWritable();
+      }
+
+      try {
+        if (writable) {
+          await writable.write(fixedHeader);
+          await writable.write(metaCipher);
+        } else {
+          blobParts.push(fixedHeader, metaCipher);
+        }
+
+        const chunkSizeBig = BigInt(FearCrypto.DEFAULT_CHUNK);
+        const totalChunks = fileSize === 0n
+          ? 1n
+          : (fileSize / chunkSizeBig) + (fileSize % chunkSizeBig !== 0n ? 1n : 0n);
+
+        for (let idx = 0n; idx < totalChunks; idx++) {
+          if (cancelRequested) throw new Error('Cancelled by user.');
+
+          const start = idx * chunkSizeBig;
+          const remaining = fileSize - start;
+          const plainLen = fileSize === 0n
+            ? 0
+            : Number(remaining < chunkSizeBig ? remaining : chunkSizeBig);
+
+          const plainBuf = plainLen > 0
+            ? new Uint8Array(await file.slice(Number(start), Number(start) + plainLen).arrayBuffer())
+            : new Uint8Array(0);
+
+          const iv = FearCrypto.makeChunkIv(baseIv, idx + 1n);
+          const isFinal = idx === totalChunks - 1n;
+          const aad = FearCrypto.buildChunkAad({ isV3: true, fixedHeader }, idx, plainLen, isFinal);
+
+          let cipherBuf;
+          try {
+            cipherBuf = await FearCrypto.aesGcmEncrypt(key, iv, aad, plainBuf);
+          } finally {
+            wipeBytes(plainBuf);
+          }
+
+          const lenBytes = new Uint8Array(4);
+          new DataView(lenBytes.buffer).setUint32(0, plainLen, false);
+
+          if (writable) {
+            await writable.write(lenBytes);
+            await writable.write(cipherBuf);
+          } else {
+            blobParts.push(lenBytes, cipherBuf);
+          }
+
+          onProgress(Number(((idx + 1n) * 100n) / totalChunks));
+        }
+
+        if (writable) {
+          await writable.close();
+          writable = null;
+        } else {
+          triggerBlobDownload(blobParts, outName, 'application/octet-stream');
+        }
+      } catch (err) {
+        if (writable) {
+          try { await writable.abort(); } catch {}
+          try { await dirHandle.removeEntry(createdName); } catch {}
+        }
+        throw err;
+      }
+    }
+
+    async function decryptSingleFile(file, passwordBytes, dirHandle, onProgress) {
+      const h = await FearCrypto.openAndVerifyHeader(file, passwordBytes);
+      const safeName = sanitizeFilename(h.origName);
+
+      let writable = null;
+      let createdName = safeName;
+      const blobParts = dirHandle ? null : [];
+
+      if (dirHandle) {
+        const res = await createUniqueFileInDir(dirHandle, safeName);
+        createdName = res.name;
+        writable = await res.handle.createWritable();
+      }
+
+      try {
+        const chunkSizeBig = BigInt(h.chunkSize);
+        let cursor = h.dataOffset;
+
+        for (let idx = 0n; idx < h.totalChunks; idx++) {
+          if (cancelRequested) throw new Error('Cancelled by user.');
+
+          const chunkStart = idx * chunkSizeBig;
+          const remaining = h.originalSize - chunkStart;
+          const expectedLen = h.originalSize === 0n
+            ? 0
+            : Number(remaining < chunkSizeBig ? remaining : chunkSizeBig);
+
+          const recordBytes = 4 + expectedLen + FearCrypto.TAG_LEN;
+          const raw = new Uint8Array(await file.slice(Number(cursor), Number(cursor) + recordBytes).arrayBuffer());
+          if (raw.byteLength !== recordBytes) {
+            throw new Error('Truncated encrypted file (incomplete chunk).');
+          }
+          cursor += BigInt(recordBytes);
+
+          const plainLen = new DataView(raw.buffer, raw.byteOffset, 4).getUint32(0, false);
+          if (plainLen !== expectedLen) {
+            throw new Error('Invalid chunk length or chunk ordering.');
+          }
+
+          const cipherWithTag = raw.subarray(4);
+          const iv = FearCrypto.makeChunkIv(h.baseIv, idx + 1n);
+          const aad = FearCrypto.buildChunkAad(h, idx, plainLen, idx === h.totalChunks - 1n);
+
+          let plain;
+          try {
+            plain = await FearCrypto.aesGcmDecrypt(h.key, iv, aad, cipherWithTag);
+          } catch {
+            throw new Error('Chunk authentication failed (file corrupted or tampered).');
+          }
+
+          if (plain.byteLength !== plainLen) {
+            wipeBytes(plain);
+            throw new Error('Authenticated chunk length mismatch.');
+          }
+
+          if (writable) {
+            if (plainLen > 0) await writable.write(plain);
+            wipeBytes(plain);
+          } else {
+            if (plainLen > 0) blobParts.push(plain);
+          }
+
+          onProgress(Number(((idx + 1n) * 100n) / h.totalChunks));
+        }
+
+        if (cursor !== BigInt(file.size)) {
+          throw new Error('Unexpected trailing data detected after final authenticated chunk.');
+        }
+
+        if (writable) {
+          await writable.close();
+          writable = null;
+        } else {
+          triggerBlobDownload(blobParts, safeName, FearCrypto.guessMimeFromExt(safeName, h.origMime));
+          blobParts.forEach(wipeBytes);
+        }
+      } catch (err) {
+        if (blobParts) blobParts.forEach(wipeBytes);
+        if (writable) {
+          try { await writable.abort(); } catch {}
+          try { await dirHandle.removeEntry(createdName); } catch {}
+        }
+        throw err;
+      }
+    }
+
+    runBtn.addEventListener('click', async () => {
+      if (running) return;
+      if (files.length === 0) {
+        setStatus('Add at least one file first.', 'error');
+        return;
+      }
+
+      const rawPw1 = pw1.value;
+      const utf8Pw = textEncoder.encode(rawPw1);
+
+      if (encryptMode) {
+        if (utf8Pw.length < 16) {
+          wipeBytes(utf8Pw);
+          setStatus('Use at least 16 characters for the password.', 'error');
+          return;
+        }
+        if (rawPw1 !== pw2.value) {
+          wipeBytes(utf8Pw);
+          setStatus('Passwords do not match.', 'error');
+          return;
+        }
+      } else if (utf8Pw.length === 0) {
+        setStatus('Enter the password.', 'error');
+        return;
+      }
+
+      // Immediately clear password inputs from DOM
+      wipeInputs();
+
+      const dirHandle = await pickOutputDirectoryIfSupported();
+      if (dirHandle === 'CANCELLED') {
+        wipeBytes(utf8Pw);
+        setStatus('Output folder selection cancelled.');
+        return;
+      }
+
+      running = true;
+      cancelRequested = false;
+      runBtn.disabled = true;
+      chooseBtn.disabled = true;
+      clearBtn.disabled = true;
+      cancelBtn.style.display = 'inline-block';
+      cancelBtn.disabled = false;
+      progWrap.classList.add('visible');
+      progFill.style.width = '0%';
+      renderFileList();
+
+      let okCount = 0;
+      let failCount = 0;
+      let lastErr = '';
+
+      try {
+        for (let i = 0; i < files.length; i++) {
+          if (cancelRequested) break;
+          const f = files[i];
+          const action = encryptMode ? 'Encrypting' : 'Decrypting';
+          setStatus(`${action} (${i + 1}/${files.length}): ${f.name} — deriving key...`);
+          progFill.style.width = '0%';
+
+          try {
+            const onProg = (pct) => {
+              progFill.style.width = `${pct}%`;
+              setStatus(`${action} (${i + 1}/${files.length}): ${f.name} — ${pct}%`);
+            };
+
+            if (encryptMode) {
+              await encryptSingleFile(f, utf8Pw, dirHandle, onProg);
+            } else {
+              await decryptSingleFile(f, utf8Pw, dirHandle, onProg);
+            }
+            okCount++;
+          } catch (err) {
+            failCount++;
+            lastErr = `Error on ${f.name}: ${err.message || err}`;
+            if (cancelRequested) break;
+          }
+        }
+      } finally {
+        wipeBytes(utf8Pw);
+        running = false;
+        runBtn.disabled = false;
+        chooseBtn.disabled = false;
+        clearBtn.disabled = false;
+        cancelBtn.style.display = 'none';
+        progWrap.classList.remove('visible');
+        renderFileList();
+      }
+
+      if (cancelRequested) {
+        setStatus(`Cancelled. ${okCount} file(s) completed.`, 'error');
+      } else if (failCount === 0) {
+        setStatus(`Done: ${okCount} file(s) processed safely.`, 'ok');
+      } else {
+        setStatus(`Finished with ${okCount} ok, ${failCount} failed. ${lastErr}`, 'error');
+      }
+    });
+
+    function wipeInputs() {
+      pw1.value = '';
+      if (pw2) pw2.value = '';
+    }
+
+    function cancelIfRunning() {
+      if (running) cancelRequested = true;
+    }
+
+    return { wipeInputs, cancelIfRunning };
+  }
+
+  const encryptVault = createVaultController(true);
+  const decryptVault = createVaultController(false);
+
+  // =========================================================================
+  // 7. VLC-STYLE FEARFILES PLAYER CONTROLLER
+  // =========================================================================
+  const PlayerController = (() => {
+    const pageEl = document.getElementById('pagePlayer');
+    const stageEl = document.getElementById('playerStage');
+    const videoEl = document.getElementById('playerVideo');
+    const audioCard = document.getElementById('audioCard');
+    const audioTitle = document.getElementById('audioTitle');
+    const audioSub = document.getElementById('audioSub');
+    const overlayEl = document.getElementById('playerOverlay');
+    const overlayText = document.getElementById('playerOverlayText');
+    const progBox = document.getElementById('playerProgressBox');
+    const progFill = document.getElementById('playerProgressFill');
+    const cancelLoadBtn = document.getElementById('playerCancelLoadBtn');
+
+    const timeCur = document.getElementById('timeCur');
+    const timeTot = document.getElementById('timeTot');
+    const timeline = document.getElementById('timelineSlider');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const stopWipeBtn = document.getElementById('stopWipeBtn');
+    const openMediaBtn = document.getElementById('openMediaBtn');
+    const fileInput = document.getElementById('playerFileInput');
+    const audioTrackSelect = document.getElementById('audioTrackSelect');
+    const subTrackSelect = document.getElementById('subTrackSelect');
+    const volSlider = document.getElementById('volSlider');
+    const fsBtn = document.getElementById('fsBtn');
+
+    let activeBlobUrl = null;
+    let activeMediaChunks = [];
+    let seeking = false;
+    let loading = false;
+    let cancelLoad = false;
+
+    videoEl.volume = 0.8;
+
+    function resetTrackSelectors() {
+      audioTrackSelect.innerHTML = '<option value="auto">Audio: Auto</option>';
+      subTrackSelect.innerHTML = '<option value="no">Subtitles: Off</option>';
+    }
+
+    function populateTracks() {
+      resetTrackSelectors();
+
+      if (videoEl.audioTracks && videoEl.audioTracks.length > 0) {
+        audioTrackSelect.innerHTML = '';
+        for (let i = 0; i < videoEl.audioTracks.length; i++) {
+          const t = videoEl.audioTracks[i];
+          const opt = document.createElement('option');
+          opt.value = String(i);
+          opt.textContent = `#${i + 1}${t.language ? ` [${t.language}]` : ''}${t.label ? ` ${t.label}` : ''}`;
+          if (t.enabled) opt.selected = true;
+          audioTrackSelect.appendChild(opt);
+        }
+      }
+
+      if (videoEl.textTracks && videoEl.textTracks.length > 0) {
+        for (let i = 0; i < videoEl.textTracks.length; i++) {
+          const t = videoEl.textTracks[i];
+          const opt = document.createElement('option');
+          opt.value = String(i);
+          opt.textContent = `#${i + 1}${t.language ? ` [${t.language}]` : ''}${t.label ? ` ${t.label}` : ''}`;
+          subTrackSelect.appendChild(opt);
+        }
+      }
+    }
+
+    function stopAndWipe() {
+      if (loading) cancelLoad = true;
+      try {
+        videoEl.pause();
+        videoEl.removeAttribute('src');
+        videoEl.load();
+      } catch {}
+
+      if (activeBlobUrl) {
+        URL.revokeObjectURL(activeBlobUrl);
+        activeBlobUrl = null;
+      }
+
+      for (const buf of activeMediaChunks) {
+        wipeBytes(buf);
+      }
+      activeMediaChunks = [];
+
+      videoEl.classList.remove('visible');
+      audioCard.classList.remove('visible');
+      progBox.style.display = 'none';
+      overlayEl.classList.remove('hidden', 'interactive');
+      overlayText.innerHTML =
+        'Drop any .fearfiles media here (MP4, WebM, MKV, FLAC, MP3, WAV, OGG...)<br>' +
+        'Authenticated encrypted playback · Zero disk writes · Instant RAM wipe';
+
+      timeline.value = 0;
+      timeCur.textContent = '00:00';
+      timeTot.textContent = '00:00';
+      resetTrackSelectors();
+    }
+
+    async function unlockAndPlay(file) {
+      if (!file) return;
+      const pwBytes = await promptPasswordModal(
+        'Unlock FEAR Media',
+        `Enter password to inspect metadata & stream:\n${file.name}`
+      );
+      if (!pwBytes) return;
+
+      stopAndWipe();
+      loading = true;
+      cancelLoad = false;
+      overlayEl.classList.add('interactive');
+      overlayText.textContent = `Authenticating header & deriving key for ${file.name}...`;
+      progBox.style.display = 'flex';
+      progFill.style.width = '0%';
+
+      try {
+        const h = await FearCrypto.openAndVerifyHeader(file, pwBytes);
+        wipeBytes(pwBytes);
+
+        if (!FearCrypto.isSupportedMedia(h.origName)) {
+          stopAndWipe();
+          showMessageModal(
+            'Not a Media File',
+            `Authenticated metadata shows:\n\nName: ${h.origName}\nSize: ${fmtBytes(h.originalSize)}\n\nThis is not a supported audio/video format. Use the Read or Decrypt tab instead.`
+          );
+          return;
+        }
+
+        const chunkSizeBig = BigInt(h.chunkSize);
+        let cursor = h.dataOffset;
+        const decryptedChunks = [];
+
+        try {
+          for (let idx = 0n; idx < h.totalChunks; idx++) {
+            if (cancelLoad) throw new Error('Playback load cancelled.');
+
+            const chunkStart = idx * chunkSizeBig;
+            const remaining = h.originalSize - chunkStart;
+            const expectedLen = h.originalSize === 0n
+              ? 0
+              : Number(remaining < chunkSizeBig ? remaining : chunkSizeBig);
+
+            const recSize = 4 + expectedLen + FearCrypto.TAG_LEN;
+            const raw = new Uint8Array(await file.slice(Number(cursor), Number(cursor) + recSize).arrayBuffer());
+            if (raw.byteLength !== recSize) throw new Error('Truncated encrypted media file.');
+            cursor += BigInt(recSize);
+
+            const plainLen = new DataView(raw.buffer, raw.byteOffset, 4).getUint32(0, false);
+            if (plainLen !== expectedLen) throw new Error('Invalid chunk length or ordering.');
+
+            const iv = FearCrypto.makeChunkIv(h.baseIv, idx + 1n);
+            const aad = FearCrypto.buildChunkAad(h, idx, plainLen, idx === h.totalChunks - 1n);
+
+            const plain = await FearCrypto.aesGcmDecrypt(h.key, iv, aad, raw.subarray(4));
+            if (plain.byteLength !== plainLen) {
+              wipeBytes(plain);
+              throw new Error('Chunk authentication failed.');
+            }
+            decryptedChunks.push(plain);
+
+            const pct = Number(((idx + 1n) * 100n) / h.totalChunks);
+            progFill.style.width = `${pct}%`;
+            overlayText.textContent = `Decrypting ${h.origName} into RAM — ${pct}%`;
+          }
+        } catch (err) {
+          decryptedChunks.forEach(wipeBytes);
+          throw err;
+        }
+
+        if (cursor !== BigInt(file.size)) {
+          decryptedChunks.forEach(wipeBytes);
+          throw new Error('Unexpected trailing bytes detected after final authenticated chunk.');
+        }
+
+        const mime = FearCrypto.guessMimeFromExt(h.origName, h.origMime);
+        const blob = new Blob(decryptedChunks, { type: mime });
+        activeMediaChunks = decryptedChunks;
+        activeBlobUrl = URL.createObjectURL(blob);
+
+        overlayEl.classList.add('hidden');
+        overlayEl.classList.remove('interactive');
+        progBox.style.display = 'none';
+
+        if (FearCrypto.isAudioOnly(h.origName)) {
+          videoEl.classList.remove('visible');
+          audioTitle.textContent = h.origName;
+          audioSub.textContent = `${fmtBytes(h.originalSize)} · Authenticated FEAR RAM Stream`;
+          audioCard.classList.add('visible');
+        } else {
+          audioCard.classList.remove('visible');
+          videoEl.classList.add('visible');
+        }
+
+        videoEl.src = activeBlobUrl;
+        videoEl.play().catch(() => {});
+      } catch (err) {
+        wipeBytes(pwBytes);
+        const wasCancelled = cancelLoad;
+        stopAndWipe();
+        if (!wasCancelled) {
+          showMessageModal('Unlock Failed', err.message || String(err), true);
+        }
+      } finally {
+        loading = false;
+      }
+    }
+
+    function togglePause() {
+      if (!activeBlobUrl) return;
+      if (videoEl.paused) videoEl.play().catch(() => {});
+      else videoEl.pause();
+    }
+
+    function toggleFullscreen() {
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      } else {
+        pageEl.requestFullscreen().catch(() => {});
+      }
+    }
+
+    // Event wiring
+    openMediaBtn.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) unlockAndPlay(fileInput.files[0]);
+      fileInput.value = '';
+    });
+
+    playPauseBtn.addEventListener('click', togglePause);
+    stopWipeBtn.addEventListener('click', stopAndWipe);
+    fsBtn.addEventListener('click', toggleFullscreen);
+    cancelLoadBtn.addEventListener('click', () => { cancelLoad = true; });
+
+    volSlider.addEventListener('input', () => {
+      videoEl.volume = Number(volSlider.value) / 100;
+    });
+
+    timeline.addEventListener('mousedown', () => { seeking = true; });
+    timeline.addEventListener('touchstart', () => { seeking = true; }, { passive: true });
+    timeline.addEventListener('change', () => {
+      if (Number.isFinite(videoEl.duration) && videoEl.duration > 0) {
+        videoEl.currentTime = (Number(timeline.value) / 1000) * videoEl.duration;
+      }
+      seeking = false;
+    });
+    timeline.addEventListener('mouseup', () => { seeking = false; });
+    timeline.addEventListener('touchend', () => { seeking = false; });
+
+    videoEl.addEventListener('loadedmetadata', () => {
+      timeTot.textContent = fmtTime(videoEl.duration);
+      populateTracks();
+    });
+
+    videoEl.addEventListener('timeupdate', () => {
+      timeCur.textContent = fmtTime(videoEl.currentTime);
+      if (!seeking && Number.isFinite(videoEl.duration) && videoEl.duration > 0) {
+        timeline.value = Math.round((videoEl.currentTime / videoEl.duration) * 1000);
+      }
+    });
+
+    videoEl.addEventListener('error', () => {
+      if (!activeBlobUrl) return;
+      showMessageModal(
+        'Playback Codec Not Supported by Browser',
+        'The file was authenticated and decrypted successfully, but your browser cannot natively decode this media container/codec (for example MKV/HEVC/AVI). Use the Decrypt tab or FEARFiles Desktop (libmpv) to play it.',
+        true
+      );
+    });
+
+    audioTrackSelect.addEventListener('change', () => {
+      if (!videoEl.audioTracks) return;
+      const target = Number(audioTrackSelect.value);
+      for (let i = 0; i < videoEl.audioTracks.length; i++) {
+        videoEl.audioTracks[i].enabled = (i === target);
+      }
+    });
+
+    subTrackSelect.addEventListener('change', () => {
+      if (!videoEl.textTracks) return;
+      const val = subTrackSelect.value;
+      for (let i = 0; i < videoEl.textTracks.length; i++) {
+        videoEl.textTracks[i].mode = (val !== 'no' && i === Number(val)) ? 'showing' : 'disabled';
+      }
+    });
+
+    stageEl.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      stageEl.classList.add('drag-over');
+    });
+    stageEl.addEventListener('dragleave', () => stageEl.classList.remove('drag-over'));
+    stageEl.addEventListener('drop', (e) => {
+      e.preventDefault();
+      stageEl.classList.remove('drag-over');
+      if (e.dataTransfer && e.dataTransfer.files.length) {
+        unlockAndPlay(e.dataTransfer.files[0]);
+      }
+    });
+
+    return { stopAndWipe, togglePause, toggleFullscreen };
+  })();
+
+  // =========================================================================
+  // 8. READ & PREVIEW PAGE CONTROLLER (with Lazy ZIP Inspector)
+  // =========================================================================
+  const ReadController = (() => {
+    const MAX_RAM_PREVIEW = 32 * 1024 * 1024;
+    const IMG_EXTS = new Set(['png', 'jpg', 'jpeg', 'bmp', 'gif', 'webp', 'svg']);
+    const TEXT_EXTS = new Set([
+      'txt', 'md', 'json', 'xml', 'html', 'htm', 'css', 'js', 'ts', 'cpp', 'c', 'h', 'hpp',
+      'py', 'java', 'rs', 'go', 'sh', 'bat', 'ini', 'cfg', 'yaml', 'yml', 'toml', 'csv',
+      'log', 'sql', 'cmake'
+    ]);
+
+    const openBtn = document.getElementById('readOpenBtn');
+    const clearBtn = document.getElementById('readClearBtn');
+    const fileInput = document.getElementById('readFileInput');
+    const infoEl = document.getElementById('readInfo');
+    const dropZone = document.getElementById('readDropZone');
+
+    const zipPane = document.getElementById('zipPane');
+    const zipTableBody = document.getElementById('zipTableBody');
+
+    const viewEmpty = document.getElementById('viewEmpty');
+    const viewText = document.getElementById('viewText');
+    const viewImage = document.getElementById('viewImage');
+    const viewPdf = document.getElementById('viewPdf');
+
+    const previewTextEl = document.getElementById('previewTextEl');
+    const previewImageEl = document.getElementById('previewImageEl');
+    const previewPdfEl = document.getElementById('previewPdfEl');
+
+    let activeRamBytes = null;
+    let activePreviewUrl = null;
+    let fearStream = null;
+    let plainZipFile = null;
+    let zipEntries = [];
+
+    function showPreviewView(viewEl) {
+      [viewEmpty, viewText, viewImage, viewPdf].forEach((v) => v.classList.remove('active'));
+      viewEl.classList.add('active');
+    }
+
+    function revokePreviewUrl() {
+      if (activePreviewUrl) {
+        URL.revokeObjectURL(activePreviewUrl);
+        activePreviewUrl = null;
+      }
+      previewImageEl.removeAttribute('src');
+      previewPdfEl.removeAttribute('src');
+    }
+
+    function wipeActiveRamBytes() {
+      if (activeRamBytes) {
+        wipeBytes(activeRamBytes);
+        activeRamBytes = null;
+      }
+      revokePreviewUrl();
+    }
+
+    function clearAndWipe() {
+      zipTableBody.innerHTML = '';
+      zipPane.classList.remove('visible');
+      zipEntries = [];
+      if (fearStream) {
+        fearStream.wipeAndClose();
+        fearStream = null;
+      }
+      plainZipFile = null;
+      previewTextEl.textContent = '';
+      wipeActiveRamBytes();
+      showPreviewView(viewEmpty);
+      infoEl.textContent = 'RAM wiped. Drop any file or .fearfiles to preview.';
+    }
+
+    function previewBytes(label, filename, bytes) {
+      infoEl.textContent = `${label} · ${fmtBytes(bytes.byteLength)}`;
+      const ext = getExt(filename);
+      revokePreviewUrl();
+
+      if (ext === 'pdf') {
+        const blob = new Blob([bytes], { type: 'application/pdf' });
+        activePreviewUrl = URL.createObjectURL(blob);
+        previewPdfEl.src = activePreviewUrl;
+        showPreviewView(viewPdf);
+        return;
+      }
+
+      if (IMG_EXTS.has(ext)) {
+        const blob = new Blob([bytes], { type: FearCrypto.guessMimeFromExt(filename) });
+        activePreviewUrl = URL.createObjectURL(blob);
+        previewImageEl.src = activePreviewUrl;
+        showPreviewView(viewImage);
+        return;
+      }
+
+      const hasNull = bytes.includes(0);
+      if (TEXT_EXTS.has(ext) || !hasNull) {
+        previewTextEl.textContent = textDecoder.decode(bytes);
+        showPreviewView(viewText);
+        return;
+      }
+
+      // Binary hex dump (first 4096 bytes — matching desktop)
+      const limit = Math.min(4096, bytes.byteLength);
+      let hexOut = `Binary / Document file: ${filename} (${fmtBytes(bytes.byteLength)})\nShowing first ${limit} bytes (hex):\n\n`;
+      for (let i = 0; i < limit; i += 16) {
+        hexOut += `${i.toString(16).padStart(6, '0')}: `;
+        for (let j = 0; j < 16 && i + j < limit; j++) {
+          hexOut += `${bytes[i + j].toString(16).padStart(2, '0')} `;
+        }
+        hexOut += '\n';
+      }
+      previewTextEl.textContent = hexOut;
+      showPreviewView(viewText);
+    }
+
+    function populateZipTree(title) {
+      zipTableBody.innerHTML = '';
+      zipEntries.forEach((e, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = e.isDir ? 'zip-dir' : 'zip-row';
+
+        const tdName = document.createElement('td');
+        tdName.textContent = e.name;
+        tdName.style.wordBreak = 'break-all';
+
+        const tdSize = document.createElement('td');
+        tdSize.textContent = e.isDir ? '<DIR>' : fmtBytes(e.uncompSize);
+        tdSize.style.whiteSpace = 'nowrap';
+
+        const tdMethod = document.createElement('td');
+        tdMethod.textContent = e.isDir
+          ? ''
+          : (e.method === 0 ? 'Stored' : (e.method === 8 ? 'Deflate' : String(e.method)));
+        tdMethod.style.whiteSpace = 'nowrap';
+
+        tr.appendChild(tdName);
+        tr.appendChild(tdSize);
+        tr.appendChild(tdMethod);
+
+        if (!e.isDir) {
+          tr.addEventListener('click', () => {
+            zipTableBody.querySelectorAll('tr.selected').forEach((r) => r.classList.remove('selected'));
+            tr.classList.add('selected');
+            onZipItemClicked(idx);
+          });
+        }
+        zipTableBody.appendChild(tr);
+      });
+
+      zipPane.classList.add('visible');
+      infoEl.textContent = `${title} — ${zipEntries.length} item(s). Click any file to peek inside.`;
+      previewTextEl.textContent = 'Select a file from the archive list on the left to preview it in RAM.';
+      showPreviewView(viewText);
+    }
+
+    async function plainReadAt(file, offsetBig, len) {
+      const off = Number(offsetBig);
+      const buf = new Uint8Array(await file.slice(off, off + len).arrayBuffer());
+      return buf.byteLength === len ? buf : null;
+    }
+
+    async function onZipItemClicked(idx) {
+      const entry = zipEntries[idx];
+      if (!entry || entry.isDir) return;
+
+      infoEl.textContent = `Extracting '${entry.name}' into RAM...`;
+      try {
+        let extracted;
+        if (fearStream) {
+          extracted = await ZipInspector.extractEntryToRam(
+            entry,
+            fearStream.h.originalSize,
+            (off, len) => fearStream.readAt(off, len)
+          );
+        } else if (plainZipFile) {
+          extracted = await ZipInspector.extractEntryToRam(
+            entry,
+            BigInt(plainZipFile.size),
+            (off, len) => plainReadAt(plainZipFile, off, len)
+          );
+        } else {
+          return;
+        }
+        wipeActiveRamBytes();
+        activeRamBytes = extracted;
+        previewBytes(`${entry.name} (from archive)`, entry.name, activeRamBytes);
+      } catch (err) {
+        wipeActiveRamBytes();
+        previewTextEl.textContent = `Cannot preview '${entry.name}':\n${err.message || err}`;
+        showPreviewView(viewText);
+      }
+    }
+
+    async function openEncryptedFearFile(file) {
+      const pwBytes = await promptPasswordModal(
+        'Unlock FEAR File for Reading',
+        `Enter password to inspect:\n${file.name}`
+      );
+      if (!pwBytes) return;
+
+      infoEl.textContent = `Authenticating ${file.name} & deriving key...`;
+
+      let h;
+      try {
+        h = await FearCrypto.openAndVerifyHeader(file, pwBytes);
+      } finally {
+        wipeBytes(pwBytes);
+      }
+
+      const stream = new FearMediaStream(file, h);
+      const origName = h.origName;
+      const ext = getExt(origName);
+
+      if (ext === 'zip') {
+        fearStream = stream;
+        zipEntries = await ZipInspector.listEntries(
+          fearStream.h.originalSize,
+          (off, len) => fearStream.readAt(off, len)
+        );
+        populateZipTree(`${origName} (Encrypted FEAR ZIP — lazy view, not fully decrypted)`);
+        return;
+      }
+
+      if (h.originalSize > BigInt(MAX_RAM_PREVIEW)) {
+        stream.wipeAndClose();
+        throw new Error('File is larger than 32 MiB RAM preview limit. Use the Decrypt tab.');
+      }
+
+      const plain = await stream.readAt(0n, Number(h.originalSize));
+      stream.wipeAndClose();
+      if (!plain) {
+        throw new Error('Chunk authentication failed while reading into RAM.');
+      }
+      wipeActiveRamBytes();
+      activeRamBytes = plain;
+      previewBytes(`${origName} (FEAR RAM Preview)`, origName, activeRamBytes);
+    }
+
+    async function openPlainFile(file) {
+      const ext = getExt(file.name);
+      if (ext === 'zip') {
+        plainZipFile = file;
+        zipEntries = await ZipInspector.listEntries(
+          BigInt(file.size),
+          (off, len) => plainReadAt(file, off, len)
+        );
+        populateZipTree(`${file.name} (ZIP Archive)`);
+        return;
+      }
+
+      if (file.size > MAX_RAM_PREVIEW) {
+        throw new Error('File exceeds 32 MiB preview limit.');
+      }
+
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      wipeActiveRamBytes();
+      activeRamBytes = bytes;
+      previewBytes(file.name, file.name, activeRamBytes);
+    }
+
+    async function openFile(file) {
+      if (!file) return;
+      clearAndWipe();
+      try {
+        if (await FearCrypto.isFearFile(file)) {
+          await openEncryptedFearFile(file);
+        } else {
+          await openPlainFile(file);
+        }
+      } catch (err) {
+        clearAndWipe();
+        showMessageModal('Read Error', err.message || String(err), true);
+      }
+    }
+
+    openBtn.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) openFile(fileInput.files[0]);
+      fileInput.value = '';
+    });
+    clearBtn.addEventListener('click', clearAndWipe);
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('drag-over');
+    });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      if (e.dataTransfer && e.dataTransfer.files.length) {
+        openFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    return { clearAndWipe };
+  })();
+
+  // =========================================================================
+  // 9. TAB NAVIGATION, KEYBOARD SHORTCUTS & GLOBAL RAM WIPE
+  // =========================================================================
+  const pages = {
+    encrypt: document.getElementById('pageEncrypt'),
+    decrypt: document.getElementById('pageDecrypt'),
+    player: document.getElementById('pagePlayer'),
+    read: document.getElementById('pageRead')
+  };
+
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  let activeTab = 'encrypt';
+
+  function globalLockAndWipe() {
+    encryptVault.wipeInputs();
+    decryptVault.wipeInputs();
+    PlayerController.stopAndWipe();
+    ReadController.clearAndWipe();
+  }
+
+  function switchTab(tabName) {
+    if (!pages[tabName]) return;
+    encryptVault.wipeInputs();
+    decryptVault.wipeInputs();
+    if (tabName !== 'player') PlayerController.stopAndWipe();
+    if (tabName !== 'read') ReadController.clearAndWipe();
+
+    activeTab = tabName;
+    Object.entries(pages).forEach(([k, el]) => {
+      el.classList.toggle('active', k === tabName);
+    });
+    tabBtns.forEach((b) => {
+      b.classList.toggle('active', b.dataset.tab === tabName);
+    });
+  }
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  document.getElementById('globalLockBtn').addEventListener('click', globalLockAndWipe);
+
+  // Player keyboard shortcuts (Space = Play/Pause, F = Fullscreen, Escape = Exit Fullscreen)
+  document.addEventListener('keydown', (e) => {
+    if (pwModalBackdrop.classList.contains('open') || msgModalBackdrop.classList.contains('open')) {
+      if (e.key === 'Escape') {
+        closePasswordModal(null);
+        msgModalBackdrop.classList.remove('open');
+      }
+      return;
+    }
+
+    const tag = document.activeElement ? document.activeElement.tagName : '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+    if (activeTab === 'player') {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        PlayerController.togglePause();
+      } else if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        PlayerController.toggleFullscreen();
+      } else if (e.key === 'Escape' && document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+  });
+
+  // Wipe RAM & revoke all Blob URLs on page unload
+  window.addEventListener('beforeunload', () => {
+    encryptVault.cancelIfRunning();
+    decryptVault.cancelIfRunning();
+    globalLockAndWipe();
+  });
+})();
 </script>
 </body>
 </html>
